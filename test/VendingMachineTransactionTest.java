@@ -21,5 +21,6 @@ public class VendingMachineTransactionTest {
     public void recognizesWeightAndDiameterOfQuater(){
         VendingMachineTransaction test = new VendingMachineTransaction();
         assertEquals(25, test.coinRecognition("5.670 g", "0.955 in"));
+        assertEquals(10, test.coinRecognition("2.268 g", "0.705 in"));
     }
 }

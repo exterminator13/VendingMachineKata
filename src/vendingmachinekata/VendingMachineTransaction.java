@@ -8,8 +8,11 @@ public class VendingMachineTransaction {
         return "INSERT COIN";
     }
         public int coinRecognition(String weight, String diameter){
-        if("5.670 g".equals(weight) && "0.955 in".equals(diameter)){
+        if(weight.equals("5.670 g") && diameter.equals("0.955 in")){
             return 25;
+        }
+        if(weight.equals("2.268 g") && diameter.equals("0.705 in")){
+            return 10;
         }
         return 0;
     } 
