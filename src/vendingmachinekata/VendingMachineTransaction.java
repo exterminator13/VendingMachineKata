@@ -14,6 +14,9 @@ public class VendingMachineTransaction {
         if(weight.equals("2.268 g") && diameter.equals("0.705 in")){
             return 10;
         }
+        if(weight.equals("5.000 g") && diameter.equals("0.835 in")){
+            return 5;
+        }
         return 0;
     } 
 }

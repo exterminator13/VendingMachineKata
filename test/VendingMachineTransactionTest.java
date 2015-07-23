@@ -22,5 +22,6 @@ public class VendingMachineTransactionTest {
         VendingMachineTransaction test = new VendingMachineTransaction();
         assertEquals(25, test.coinRecognition("5.670 g", "0.955 in"));
         assertEquals(10, test.coinRecognition("2.268 g", "0.705 in"));
+        assertEquals(5, test.coinRecognition("5.000 g", "0.835 in"));
     }
 }
