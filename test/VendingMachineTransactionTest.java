@@ -44,4 +44,9 @@ public class VendingMachineTransactionTest {
     public void selectCandyFromMachineWithNoMoneyReturnsTotalPrice(){
         assertEquals("$0.65", test.selectCandy());
     }
+    @Test
+    public void addingAQuarterToMachineAndGettingTotalBack(){
+        test.coinRecognition("5.670 g", "0.955 in");
+        assertEquals("$0.25",  test.transactionTotalCoins());
+    }
 }

@@ -6,10 +6,15 @@ public class VendingMachineTransaction {
         this.currentAmount = new Money();
     }
     public String transactionTotalCoins(){
-        return "INSERT COIN";
+        if(this.currentAmount.toString().equals("$0.00")){
+            return "INSERT COIN";
+        }else{
+            return this.currentAmount.toString();
+        }
     }
         public int coinRecognition(String weight, String diameter){
             if(weight.equals("5.670 g") && diameter.equals("0.955 in")){
+                this.currentAmount.addMoney(.25);
                 return 25;
             }
             if(weight.equals("2.268 g") && diameter.equals("0.705 in")){
