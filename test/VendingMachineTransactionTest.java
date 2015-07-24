@@ -12,6 +12,12 @@ public class VendingMachineTransactionTest {
     public VendingMachineTransactionTest() {
         
     }
+    String quarterWeight = "5.670 g";
+    String quarterDiameter = "0.955 in";
+    String dimeWeight = "2.268 g";
+    String dimeDiameter = "0.705 in";
+    String nickelWeight = "5.000 g";
+    String nickelDiameter = "0.835 in";
     @Before
     public void setUp(){
         test = new VendingMachineTransaction();
@@ -46,7 +52,12 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void addingAQuarterToMachineAndGettingTotalBack(){
-        test.coinRecognition("5.670 g", "0.955 in");
+        test.coinRecognition(quarterWeight, quarterDiameter);
         assertEquals("$0.25",  test.transactionTotalCoins());
+    }
+    @Test
+    public void addingADimeToMachineAndGettingTotalBack(){
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        assertEquals("$0.10", test.transactionTotalCoins());
     }
 }

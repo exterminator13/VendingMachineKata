@@ -18,6 +18,7 @@ public class VendingMachineTransaction {
                 return 25;
             }
             if(weight.equals("2.268 g") && diameter.equals("0.705 in")){
+                this.currentAmount.addMoney(.10);
                 return 10;
             }
             if(weight.equals("5.000 g") && diameter.equals("0.835 in")){
