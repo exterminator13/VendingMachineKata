@@ -1,8 +1,9 @@
 package vendingmachinekata;
 
 public class VendingMachineTransaction {
+    Money currentAmount;
     public VendingMachineTransaction(){
-        
+        this.currentAmount = new Money();
     }
     public String transactionTotalCoins(){
         return "INSERT COIN";
@@ -20,6 +21,9 @@ public class VendingMachineTransaction {
             return 0;
         }
         public String selectCola(){
-            return "$1.50";
+            if(this.currentAmount.toString().equals("$0.00")){
+                return "$1.50";
+            }
+            return "";
         }
 }
