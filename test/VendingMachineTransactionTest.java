@@ -60,4 +60,9 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals("$0.10", test.transactionTotalCoins());
     }
+    @Test
+    public void addingANickelToMachineAndGettingTotalBack(){
+        test.coinRecognition(nickelWeight, nickelDiameter);
+        assertEquals("$0.05", test.transactionTotalCoins());
+    }
 }
