@@ -66,7 +66,7 @@ public class VendingMachineTransactionTest {
         assertEquals("$0.05", test.transactionTotalCoins());
     }
     @Test
-    public void havingExactChangeReturnsThankYouForCola(){
+    public void havingExactChangeReturnsThankYouForColaAndSubtractsFromTotal(){
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
@@ -74,6 +74,7 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(nickelWeight, nickelDiameter);
         assertEquals("THANK YOU", test.selectCola());
+        assertEquals("INSERT COINS", test.transactionTotalCoins());
     }
     @Test
     public void havingExactChangeReturnsThankYouForChipsAndSubtractsFromTotal(){
