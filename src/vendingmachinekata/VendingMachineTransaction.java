@@ -7,7 +7,7 @@ public class VendingMachineTransaction {
     }
     public String transactionTotalCoins(){
         if(this.currentAmount.toString().equals("$0.00")){
-            return "INSERT COIN";
+            return "INSERT COINS";
         }else{
             return this.currentAmount.toString();
         }
@@ -39,6 +39,7 @@ public class VendingMachineTransaction {
             if(this.currentAmount.toString().equals("$0.00")){
                 return "$0.50";
             }else if(this.currentAmount.toString().equals("$0.50")){
+                this.currentAmount.removeMoney(.50);
                 return "THANK YOU";
             }
             return "";

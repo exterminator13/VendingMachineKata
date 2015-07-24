@@ -24,7 +24,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void displaysInsertCoinWhileNotInTransaction(){
-        assertEquals("INSERT COIN", test.transactionTotalCoins());
+        assertEquals("INSERT COINS", test.transactionTotalCoins());
     }
     @Test
     public void recognizesWeightAndDiameterOfQuater(){
@@ -76,12 +76,13 @@ public class VendingMachineTransactionTest {
         assertEquals("THANK YOU", test.selectCola());
     }
     @Test
-    public void havingExactChangeReturnsThankYouForChips(){
+    public void havingExactChangeReturnsThankYouForChipsAndSubtractsFromTotal(){
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(nickelWeight, nickelDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals("THANK YOU", test.selectChips());
+        assertEquals("INSERT COINS", test.transactionTotalCoins());
     }
     @Test
     public void havingExactChangeReturnsThankYouForCandyAndSubtractsFromTotal(){
