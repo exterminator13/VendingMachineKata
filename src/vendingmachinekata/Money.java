@@ -9,6 +9,9 @@ public class Money {
     public void addMoney(double amount){
         this.money += amount;
     }
+    public double getAmount(){
+        return this.money;
+    }
     @Override
     public String toString(){
         DecimalFormat decimalFormat = new DecimalFormat("####0.00");

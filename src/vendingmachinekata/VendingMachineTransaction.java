@@ -29,7 +29,9 @@ public class VendingMachineTransaction {
         }
         public String selectCola(){
             if(this.currentAmount.toString().equals("$0.00")){
-                return "$1.50";
+                return "$1.00";
+            }else if (this.currentAmount.getAmount() < 1.00){
+                return "PRICE $1.00";
             }else if(this.currentAmount.toString().equals("$1.00")){
                 this.currentAmount.removeMoney(1.00);
                 return "THANK YOU";
