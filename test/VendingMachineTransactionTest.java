@@ -40,4 +40,8 @@ public class VendingMachineTransactionTest {
     public void selectChipsFromMachineWithNoMoneyReturnsTotalPrice(){
         assertEquals("$0.50", test.selectChips());
     }
+    @Test
+    public void selectCandyFromMachineWithNoMoneyReturnsTotalPrice(){
+        assertEquals("$0.65", test.selectCandy());
+    }
 }
