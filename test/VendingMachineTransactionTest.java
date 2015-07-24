@@ -102,4 +102,11 @@ public class VendingMachineTransactionTest {
         assertEquals("PRICE $1.00", test.selectCola());
         assertEquals("$0.45", test.transactionTotalCoins());
     }
+    @Test
+    public void notEnoughMoneyReturnsPriceOfChipsAndTotalInsertedAfter(){
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        assertEquals("PRICE $0.50", test.selectChips());
+        assertEquals("$0.35", test.transactionTotalCoins());
+    }
 }

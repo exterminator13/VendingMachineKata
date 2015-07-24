@@ -41,6 +41,8 @@ public class VendingMachineTransaction {
         public String selectChips(){
             if(this.currentAmount.toString().equals("$0.00")){
                 return "$0.50";
+            }else if (this.currentAmount.getAmount() < 0.5){
+                return "PRICE $0.50";
             }else if(this.currentAmount.toString().equals("$0.50")){
                 this.currentAmount.removeMoney(.50);
                 return "THANK YOU";
