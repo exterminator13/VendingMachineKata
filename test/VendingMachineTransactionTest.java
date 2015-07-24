@@ -83,4 +83,12 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals("THANK YOU", test.selectChips());
     }
+    @Test
+    public void havingExactChangeReturnsThankYouForCandy(){
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(nickelWeight, nickelDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        assertEquals("THANK YOU", test.selectCandy());
+    }
 }
