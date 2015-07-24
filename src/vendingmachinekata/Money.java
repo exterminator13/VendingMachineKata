@@ -15,4 +15,9 @@ public class Money {
         return "$" + decimalFormat.format(money);
         
     }
+    public void removeMoney(double amount){
+        if(this.money >= amount){
+            this.money = this.money - amount;
+        }
+    }
 }
