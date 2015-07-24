@@ -32,4 +32,8 @@ public class VendingMachineTransactionTest {
     public void recognizesWeightAndDiameterOfNickel(){
         assertEquals(5, test.coinRecognition("5.000 g", "0.835 in"));
     }
+    @Test
+    public void selectColaFromMachine(){
+        assertEquals("$1.50", test.selectCola());
+    }
 }
