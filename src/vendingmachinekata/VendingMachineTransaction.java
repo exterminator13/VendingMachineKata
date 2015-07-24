@@ -5,6 +5,9 @@ public class VendingMachineTransaction {
     public VendingMachineTransaction(){
         this.currentAmount = new Money();
     }
+    public double getCurrentAmount(){
+        return this.currentAmount.getAmount();
+    }
     public String transactionTotalCoins(){
         if(this.currentAmount.toString().equals("$0.00")){
             return "INSERT COINS";
@@ -32,11 +35,19 @@ public class VendingMachineTransaction {
                 return "$1.00";
             }else if (this.currentAmount.getAmount() < 1.00){
                 return "PRICE $1.00";
-            }else if(this.currentAmount.toString().equals("$1.00")){
+            }else if(this.currentAmount.getAmount() >= 1.00){
                 this.currentAmount.removeMoney(1.00);
+                if(this.currentAmount.getAmount() > 0.00){
+                    return this.makeChange();
+                }
                 return "THANK YOU";
             }
             return "";
+        }
+        public String makeChange(){
+            String change = this.currentAmount.toString();
+            this.currentAmount.removeMoney(this.currentAmount.getAmount());
+            return "Change made is " + change + " THANK YOU";
         }
         public String selectChips(){
             if(this.currentAmount.toString().equals("$0.00")){
