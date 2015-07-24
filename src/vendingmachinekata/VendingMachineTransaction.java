@@ -26,4 +26,10 @@ public class VendingMachineTransaction {
             }
             return "";
         }
+        public String selectChips(){
+            if(this.currentAmount.toString().equals("$0.00")){
+                return "$0.50";
+            }
+            return "";
+        }
 }

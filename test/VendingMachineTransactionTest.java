@@ -33,7 +33,11 @@ public class VendingMachineTransactionTest {
         assertEquals(5, test.coinRecognition("5.000 g", "0.835 in"));
     }
     @Test
-    public void selectColaFromMachine(){
+    public void selectColaFromMachineWithNoMoneyReturnsTotalPrice(){
         assertEquals("$1.50", test.selectCola());
+    }
+    @Test
+    public void selectChipsFromMachineWithNoMoneyReturnsTotalPrice(){
+        assertEquals("$0.50", test.selectChips());
     }
 }
