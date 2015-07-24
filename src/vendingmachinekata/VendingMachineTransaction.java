@@ -32,4 +32,10 @@ public class VendingMachineTransaction {
             }
             return "";
         }
+        public String selectCandy(){
+            if(this.currentAmount.toString().equals("$0.00")){
+                return "$0.65";
+            }
+            return "";
+        }
 }
