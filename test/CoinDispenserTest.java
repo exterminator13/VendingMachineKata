@@ -34,4 +34,9 @@ public class CoinDispenserTest {
         assertEquals("0 Quarters, 0 Dimes, 1 Nickel", test.getCoinAmount());
         assertEquals("$0.05", test.getAmountInMachine().toString());
     }
+    @Test
+    public void makesChangeWithQuarter(){
+        test.addQuarter();
+        assertEquals("1 Quarter, 0 Nickels, 0 Dimes", test.makeChange(.25));
+    }
 }
