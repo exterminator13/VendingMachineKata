@@ -12,6 +12,9 @@ public class CoinDispenser {
         this.quarters = 0;
         this.amountInMachine = new Money();
     }
+    public Money getAmountInMachine(){
+        return this.amountInMachine;
+    }
     public void addQuarter(){
         this.quarters++;
         this.amountInMachine.addMoney(.25);
@@ -21,18 +24,18 @@ public class CoinDispenser {
         this.amountInMachine.addMoney(.10);
     }
     public String getCoinAmount(){
-        String quarters = " Quarters, ";
-        String dimes = " Dimes, ";
-        String nickels = " Nickels";
+        String quarter = " Quarters, ";
+        String dime = " Dimes, ";
+        String nickel = " Nickels";
         if(this.quarters == 1){
-            quarters = " Quarter, ";
+            quarter = " Quarter, ";
         }
         if(this.dimes == 1){
-            dimes = " Dime, ";
+            dime = " Dime, ";
         }
         if(this.nickels == 1){
-            nickels = " Nickel";
+            nickel = " Nickel";
         }
-        return this.quarters + quarters + this.dimes + dimes + this.nickels + nickels;
+        return this.quarters + quarter + this.dimes + dime + this.nickels + nickel;
     }
 }
