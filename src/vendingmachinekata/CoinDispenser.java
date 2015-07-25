@@ -23,6 +23,10 @@ public class CoinDispenser {
         this.dimes++;
         this.amountInMachine.addMoney(.10);
     }
+    public void addNickel(){
+        this.nickels++;
+        this.amountInMachine.addMoney(.05);
+    }
     public String getCoinAmount(){
         String quarter = " Quarters, ";
         String dime = " Dimes, ";
