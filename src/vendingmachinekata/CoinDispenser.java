@@ -26,30 +26,30 @@ public class CoinDispenser {
     public void addNickel(){
         this.nickels++;
         this.amountInMachine.addMoney(.05);
-    }
-    public String getCoinAmount(){
+    }    
+    public String stringMaker(int quarterAmount, int dimeAmount, int nickelAmount){
         String quarter = " Quarters, ";
         String dime = " Dimes, ";
         String nickel = " Nickels";
-        if(this.quarters == 1){
+        if(quarterAmount == 1){
             quarter = " Quarter, ";
         }
-        if(this.dimes == 1){
+        if(dimeAmount == 1){
             dime = " Dime, ";
         }
-        if(this.nickels == 1){
+        if(nickelAmount == 1){
             nickel = " Nickel";
         }
-        return this.quarters + quarter + this.dimes + dime + this.nickels + nickel;
+        return quarterAmount + quarter + dimeAmount + dime + nickelAmount + nickel;
+    }
+    public String getCoinAmount(){
+        return stringMaker(this.quarters, this.dimes, this.nickels);
     }
     public String makeChange(double amountToReturn){
         double amountReturned = 0;
         int quartersReturned = 0;
         int dimesReturned = 0;
         int nickelsReturned = 0;
-        String quarter = " Quarters, ";
-        String nickel = " Nickels, ";
-        String dime = " Dimes";
         while(amountToReturn > amountReturned){
             if(amountToReturn % .25 == 0 && this.quarters > 0){
                 amountToReturn = amountToReturn - .25;
@@ -58,9 +58,6 @@ public class CoinDispenser {
                 amountReturned = amountReturned + .25;
             }
         }
-        if(quartersReturned == 1){
-            quarter = " Quarter, ";
-        }
-        return quartersReturned + quarter + nickelsReturned + nickel + dimesReturned + dime;
+        return stringMaker(quartersReturned, dimesReturned, nickelsReturned);
     }
 }
