@@ -56,6 +56,11 @@ public class CoinDispenser {
                 this.quarters = this.quarters - 1;
                 quartersReturned++;
                 amountReturned = amountReturned + .25;
+            }else if(amountToReturn % .10 == 0 && this.dimes > 0){
+                amountToReturn = amountToReturn - .10;
+                this.dimes = this.dimes - 1;
+                dimesReturned++;
+                amountReturned = amountReturned + .10;
             }
         }
         return stringMaker(quartersReturned, dimesReturned, nickelsReturned);
