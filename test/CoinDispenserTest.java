@@ -42,11 +42,30 @@ public class CoinDispenserTest {
     @Test
     public void makesChangeWithDime(){
         test.addDime();
-        assertEquals("0 Quarters, 1 Dime, 0 Nickels", test.makeChange(.10));
+        assertEquals("0 Quarters, 1 Dime, 0 Nickels", test.makeChange(.1));
     }
     @Test
     public void makesChangeWithNickel(){
         test.addNickel();
-        assertEquals("0 Quarters, 0 Dimes, 1 Nickel", test.makeChange(.5));
+        assertEquals("0 Quarters, 0 Dimes, 1 Nickel", test.makeChange(.05));
+        test.addNickel();
+        test.addNickel();
+        assertEquals("0 Quarters, 0 Dimes, 2 Nickels", test.makeChange(.1));
+    }
+    @Test
+    public void makesChangeMultipleWaysCorrectly(){
+        test.addQuarter();
+        test.addQuarter();
+        test.addDime();
+        test.addDime();
+        test.addNickel();
+        assertEquals("2 Quarters, 0 Dimes, 1 Nickel", test.makeChange(.55));
+        test.addQuarter();
+        test.addDime();
+        test.addDime();
+        test.addDime();
+        test.addNickel();
+        assertEquals("1 Quarter, 2 Dimes, 0 Nickels", test.makeChange(.45));
+        assertEquals("0 Quarters, 3 Dimes, 1 Nickel", test.makeChange(.35));
     }
 }
