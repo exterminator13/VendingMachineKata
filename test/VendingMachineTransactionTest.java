@@ -125,4 +125,8 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals("Change made is $0.05 THANK YOU", test.selectCola());
     }
+    @Test
+    public void returnsCoinDispenser(){
+        assertEquals("Can't make change", test.getCoinDispenser().makeChange(0.10));
+    }
 }

@@ -2,8 +2,13 @@ package vendingmachinekata;
 
 public class VendingMachineTransaction {
     Money currentAmount;
+    CoinDispenser coinDispenser;
     public VendingMachineTransaction(){
         this.currentAmount = new Money();
+        this.coinDispenser = new CoinDispenser();
+    }
+    public CoinDispenser getCoinDispenser(){
+        return this.coinDispenser;
     }
     public double getCurrentAmount(){
         return this.currentAmount.getAmount();
