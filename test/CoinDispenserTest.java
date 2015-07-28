@@ -18,61 +18,58 @@ public class CoinDispenserTest {
     }
     @Test
     public void addingQuarterToDispenser(){
-        test.addQuarter();
+        test.addQuarters(1);
         assertEquals("1 Quarter, 0 Dimes, 0 Nickels", test.getCoinAmount());
         assertEquals("$0.25", test.getAmountInMachine().toString());
     }
     @Test
     public void addingDimesToDispenser(){
-        test.addDime();
+        test.addDimes(1);
         assertEquals("0 Quarters, 1 Dime, 0 Nickels", test.getCoinAmount());
         assertEquals("$0.10", test.getAmountInMachine().toString());
     }
     @Test
     public void addingNickelsToDispenser(){
-        test.addNickel();
+        test.addNickels(1);
         assertEquals("0 Quarters, 0 Dimes, 1 Nickel", test.getCoinAmount());
         assertEquals("$0.05", test.getAmountInMachine().toString());
     }
     @Test
     public void makesChangeWithQuarter(){
-        test.addQuarter();
+        test.addQuarters(1);
         assertEquals("1 Quarter, 0 Dimes, 0 Nickels", test.makeChange(.25));
     }
     @Test
     public void makesChangeWithDime(){
-        test.addDime();
+        test.addDimes(1);
         assertEquals("0 Quarters, 1 Dime, 0 Nickels", test.makeChange(.1));
     }
     @Test
     public void makesChangeWithNickel(){
-        test.addNickel();
+        test.addNickels(1);
         assertEquals("0 Quarters, 0 Dimes, 1 Nickel", test.makeChange(.05));
-        test.addNickel();
-        test.addNickel();
+        test.addNickels(2);
         assertEquals("0 Quarters, 0 Dimes, 2 Nickels", test.makeChange(.1));
     }
     @Test
     public void makesChangeMultipleWaysCorrectly(){
-        test.addQuarter();
-        test.addQuarter();
-        test.addDime();
-        test.addDime();
-        test.addNickel();
+        test.addQuarters(2);
+        test.addDimes(2);
+        test.addNickels(1);
         assertEquals("2 Quarters, 0 Dimes, 1 Nickel", test.makeChange(.55));
-        test.addQuarter();
-        test.addDime();
-        test.addDime();
-        test.addDime();
-        test.addNickel();
+        test.addQuarters(1);
+        test.addDimes(3);
+        test.addNickels(1);
         assertEquals("1 Quarter, 2 Dimes, 0 Nickels", test.makeChange(.45));
         assertEquals("0 Quarters, 3 Dimes, 1 Nickel", test.makeChange(.35));
     }
     @Test
     public void checksIfMachineCanMakeChangeForItem(){
-        test.addQuarter();
-        test.addNickel();
-        test.addDime();
+        test.addQuarters(1);
+        test.addNickels(1);
+        test.addDimes(1);
         assertEquals("Can't make change", test.makeChange(.20));
+        assertEquals("Can't make change", test.makeChange(.45));
+        assertEquals("Can't make change", test.makeChange(1.00));
     }
 }

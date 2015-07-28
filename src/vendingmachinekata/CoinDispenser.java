@@ -17,17 +17,17 @@ public class CoinDispenser {
     public Money getAmountInMachine(){
         return this.amountInMachine;
     }
-    public void addQuarter(){
-        this.quarters++;
-        this.amountInMachine.addMoney(.25);
+    public void addQuarters(int amount){
+        this.quarters = this.quarters + amount;
+        this.amountInMachine.addMoney(.25 * amount);
     }
-    public void addDime(){
-        this.dimes++;
-        this.amountInMachine.addMoney(.10);
+    public void addDimes(int amount){
+        this.dimes = this.dimes + amount;
+        this.amountInMachine.addMoney(.10 * amount);
     }
-    public void addNickel(){
-        this.nickels++;
-        this.amountInMachine.addMoney(.05);
+    public void addNickels(int amount){
+        this.nickels = this.nickels + amount;
+        this.amountInMachine.addMoney(.05 * amount);
     }    
     public String stringMaker(int quarterAmount, int dimeAmount, int nickelAmount){
         String quarter = " Quarters, ";
