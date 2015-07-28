@@ -57,31 +57,44 @@ public class CoinDispenser {
         double originalAmountToReturn = amountToReturn;
         int quartersReturned = 0;
         int dimesReturned = 0;
-        int nickelsReturned = 0;
+        int nickelsReturned = 0;        
+        int quartersLeft = this.quarters;
+        int dimesLeft = this.dimes;
+        int nickelsLeft = this.nickels;
+        int totalCoins = this.quarters + this.dimes + this.nickels;
         while(originalAmountToReturn > amountReturned){
-            if(amountToReturn >= .25 && this.quarters > 0){
+            if(amountToReturn >= .25 && quartersLeft > 0){
                 amountToReturn = amountToReturn - .25;
-                this.quarters = this.quarters - 1;
+                quartersLeft = quartersLeft - 1;
                 quartersReturned++;
+                totalCoins = totalCoins - 1;
                 amountReturned = amountReturned + .25;
                 amountReturned = round(amountReturned);
                 amountToReturn = round(amountToReturn);
-            }else if(amountToReturn >= .10 && this.dimes > 0){
+            }else if(amountToReturn >= .10 && dimesLeft > 0){
                 amountToReturn = amountToReturn - .1;
-                this.dimes = this.dimes - 1;
+                dimesLeft = dimesLeft - 1;
                 dimesReturned++;
+                totalCoins = totalCoins - 1;
                 amountReturned = amountReturned + .1;
                 amountReturned = round(amountReturned);
                 amountToReturn = round(amountToReturn);
-            }else if(amountToReturn >= .05 && this.nickels > 0){
+            }else if(amountToReturn >= .05 && nickelsLeft > 0){
                 amountToReturn = amountToReturn - .05;
-                this.nickels = this.nickels - 1;
+                nickelsLeft = nickelsLeft - 1;
                 nickelsReturned++;
+                totalCoins = totalCoins - 1;
                 amountReturned = amountReturned + .05;
                 amountReturned = round(amountReturned);
                 amountToReturn = round(amountToReturn);
             }
+            else{
+                return "Can't make change";
+            }
         }
+        this.quarters = this.quarters - quartersReturned;
+        this.dimes = this.dimes - dimesReturned;
+        this.nickels = this.nickels - nickelsReturned;
         return stringMaker(quartersReturned, dimesReturned, nickelsReturned);
     }
 }

@@ -68,4 +68,11 @@ public class CoinDispenserTest {
         assertEquals("1 Quarter, 2 Dimes, 0 Nickels", test.makeChange(.45));
         assertEquals("0 Quarters, 3 Dimes, 1 Nickel", test.makeChange(.35));
     }
+    @Test
+    public void checksIfMachineCanMakeChangeForItem(){
+        test.addQuarter();
+        test.addNickel();
+        test.addDime();
+        assertEquals("Can't make change", test.makeChange(.20));
+    }
 }
