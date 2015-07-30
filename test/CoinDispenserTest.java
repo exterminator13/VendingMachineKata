@@ -72,4 +72,15 @@ public class CoinDispenserTest {
         assertEquals("Can't make change", test.makeChange(.45));
         assertEquals("Can't make change", test.makeChange(1.00));
     }
+    @Test
+    public void getCoinDifferenceBetweenTwoCoinDispensers(){
+        test.addQuarters(1);
+        test.addDimes(2);
+        test.addNickels(3);
+        CoinDispenser test2 = new CoinDispenser();
+        test2.addQuarters(3);
+        test2.addDimes(4);
+        test2.addNickels(4);
+        assertEquals("2 Quarters, 2 Dimes, 1 Nickel", test2.getDifference(test));
+    }
 }
