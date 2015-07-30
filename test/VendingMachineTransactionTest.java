@@ -142,6 +142,15 @@ public class VendingMachineTransactionTest {
         assertEquals("0 Quarters, 1 Dime, 0 Nickels", test.selectItem(candy));
     }
     @Test
+    public void extraMoneyReturnedAfterChipsTransaction(){
+        test.getCoinDispenser().addNickels(2);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        assertEquals("0 Quarters, 0 Dimes, 1 Nickel", test.selectItem(chips));
+    }
+    @Test
     public void returnsWorkingCoinDispenser(){
         assertEquals("Can't make change", test.getCoinDispenser().makeChange(0.10));
     }
