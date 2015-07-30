@@ -3,9 +3,15 @@ package vendingmachinekata;
 public class VendingMachineTransaction {
     Money currentAmount;
     CoinDispenser coinDispenser;
+    Item cola;
+    Item candy;
+    Item chips;
     public VendingMachineTransaction(CoinDispenser coinDispenser){
         this.currentAmount = new Money();
         this.coinDispenser = coinDispenser; 
+        this.cola = new Item(1.00);
+        this.candy = new Item(0.65);
+        this.chips = new Item(0.50);
     }
     public double getCurrentAmount(){
         return this.currentAmount.getAmount();
@@ -38,13 +44,13 @@ public class VendingMachineTransaction {
         }
         return 0;
     }
-    public String selectCola(){
-        if(this.currentAmount.toString().equals("$0.00")){
-            return "$1.00";
-        }else if (this.currentAmount.getAmount() < 1.00){
-            return "PRICE $1.00";
-        }else if(this.currentAmount.getAmount() >= 1.00){
-            this.currentAmount.removeMoney(1.00);
+    public String selectItem(Item item){
+        if(this.currentAmount.getAmount() == 0.00){
+            return item.getMoney().toString();
+        }else if (this.currentAmount.getAmount() < item.getPrice()){
+            return "PRICE " + item.getMoney().toString();
+        }else if(this.currentAmount.getAmount() >= item.getPrice()){
+            this.currentAmount.removeMoney(item.getPrice());
             if(this.currentAmount.getAmount() > 0.00){
                 return this.makeChange();
             }
@@ -61,27 +67,5 @@ public class VendingMachineTransaction {
         }
         this.currentAmount.removeMoney(amountToReturn);
         return changeMade;
-    }
-    public String selectChips(){
-        if(this.currentAmount.toString().equals("$0.00")){
-            return "$0.50";
-        }else if (this.currentAmount.getAmount() < 0.5){
-            return "PRICE $0.50";
-        }else if(this.currentAmount.toString().equals("$0.50")){
-            this.currentAmount.removeMoney(.50);
-            return "THANK YOU";
-        }
-        return "";
-    }
-    public String selectCandy(){
-        if(this.currentAmount.toString().equals("$0.00")){
-            return "$0.65";
-        }else if(this.currentAmount.getAmount() < 0.65){
-            return "PRICE $0.65";
-        }else if(this.currentAmount.toString().equals("$0.65")){
-            this.currentAmount.removeMoney(.65);
-            return "THANK YOU";
-        }
-        return "";
     }
 }
