@@ -38,6 +38,11 @@ public class CoinDispenser {
     public int getNickels(){
         return this.nickels;
     }
+    public void setCoins(int quarterAmount, int dimeAmount, int nickelAmount){
+        this.quarters = quarterAmount;
+        this.dimes = dimeAmount;
+        this.nickels = nickelAmount;
+    }
     public String getDifference(CoinDispenser coinDispenser){
         return stringMaker(this.getQuarters() - coinDispenser.getQuarters(), this.getDimes() - coinDispenser.getDimes(), this.getNickels() - coinDispenser.getNickels());
     }

@@ -83,4 +83,16 @@ public class CoinDispenserTest {
         test2.addNickels(4);
         assertEquals("2 Quarters, 2 Dimes, 1 Nickel", test2.getDifference(test));
     }
+    @Test
+    public void setAmountOfCoinsFromOtherDispenser(){
+        test.addQuarters(3);
+        test.addDimes(4);
+        test.addNickels(1);
+        CoinDispenser test2 = new CoinDispenser();
+        test2.addQuarters(2);
+        test2.addDimes(5);
+        test2.addNickels(3);
+        test2.setCoins(test.getQuarters(), test.getDimes(), test.getNickels());
+        assertEquals("3 Quarters, 4 Dimes, 1 Nickel", test2.getCoinAmount());
+    }
 }
