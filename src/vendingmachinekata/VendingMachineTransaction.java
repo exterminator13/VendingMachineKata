@@ -3,12 +3,15 @@ package vendingmachinekata;
 public class VendingMachineTransaction {
     Money currentAmount;
     CoinDispenser coinDispenser;
+    CoinDispenser transactionDispenser;
     Item cola;
     Item candy;
     Item chips;
     public VendingMachineTransaction(CoinDispenser coinDispenser){
         this.currentAmount = new Money();
         this.coinDispenser = coinDispenser; 
+        this.transactionDispenser = new CoinDispenser();
+        this.transactionDispenser.setCoins(coinDispenser.getQuarters(), coinDispenser.getDimes(), coinDispenser.getNickels());
         this.cola = new Item(1.00);
         this.candy = new Item(0.65);
         this.chips = new Item(0.50);
@@ -67,5 +70,10 @@ public class VendingMachineTransaction {
         }
         this.currentAmount.removeMoney(amountToReturn);
         return changeMade;
+    }
+    public String returnCoins(){
+        String coinsReturned = this.coinDispenser.getDifference(this.transactionDispenser);
+        this.coinDispenser = this.transactionDispenser;
+        return coinsReturned;
     }
 }
