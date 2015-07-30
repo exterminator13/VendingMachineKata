@@ -184,4 +184,17 @@ public class VendingMachineTransactionTest {
         assertEquals("SOLD OUT", test.selectItem(candy));
         assertEquals("SOLD OUT", test.selectItem(chips));
     }
+    @Test
+    public void outOfStockItemDoesNotChangeAnything(){
+        cola.setStock(0);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        assertEquals("2 Quarters, 2 Dimes, 0 Nickels", test.getCoinDispenser().getCoinAmount());
+        assertEquals(0.7, test.getCurrentAmount(), 0.01);
+        assertEquals("SOLD OUT", test.selectItem(cola));
+        assertEquals("2 Quarters, 2 Dimes, 0 Nickels", test.getCoinDispenser().getCoinAmount());
+        assertEquals(0.7, test.getCurrentAmount(), 0.01);
+    }
 }
