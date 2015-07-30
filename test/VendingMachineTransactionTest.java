@@ -33,7 +33,8 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void displaysInsertCoinWhileNotInTransaction(){
-        assertEquals("INSERT COINS", test.transactionTotalCoins());
+        test.getCoinDispenser().addDimes(1);
+        assertEquals("INSERT COINS", test.display());
     }
     @Test
     public void recognizesWeightAndDiameterOfQuater(){
@@ -62,20 +63,21 @@ public class VendingMachineTransactionTest {
     @Test
     public void addingAQuarterToMachineAndGettingTotalBack(){
         test.coinRecognition(quarterWeight, quarterDiameter);
-        assertEquals("$0.25",  test.transactionTotalCoins());
+        assertEquals("$0.25",  test.display());
     }
     @Test
     public void addingADimeToMachineAndGettingTotalBack(){
         test.coinRecognition(dimeWeight, dimeDiameter);
-        assertEquals("$0.10", test.transactionTotalCoins());
+        assertEquals("$0.10", test.display());
     }
     @Test
     public void addingANickelToMachineAndGettingTotalBack(){
         test.coinRecognition(nickelWeight, nickelDiameter);
-        assertEquals("$0.05", test.transactionTotalCoins());
+        assertEquals("$0.05", test.display());
     }
     @Test
     public void havingExactChangeReturnsThankYouForColaAndSubtractsFromTotal(){
+        test.getCoinDispenser().addNickels(3);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
@@ -83,16 +85,17 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(nickelWeight, nickelDiameter);
         assertEquals("THANK YOU", test.selectItem(cola));
-        assertEquals("INSERT COINS", test.transactionTotalCoins());
+        assertEquals("INSERT COINS", test.display());
     }
     @Test
     public void havingExactChangeReturnsThankYouForChipsAndSubtractsFromTotal(){
+        test.getCoinDispenser().addDimes(10);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(nickelWeight, nickelDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals("THANK YOU", test.selectItem(chips));
-        assertEquals("INSERT COINS", test.transactionTotalCoins());
+        assertEquals("INSERT COINS", test.display());
     }
     @Test
     public void havingExactChangeReturnsThankYouForCandyAndSubtractsFromTotal(){
@@ -101,7 +104,7 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         assertEquals("THANK YOU", test.selectItem(candy));
-        assertEquals("INSERT COINS", test.transactionTotalCoins());
+        assertEquals("INSERT COINS", test.display());
     }
     @Test
     public void notEnoughMoneyInsertedReturnsPriceOfColaAndAfterDisplaysCurrentTransactionAmount(){
@@ -109,20 +112,20 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         assertEquals("PRICE $1.00", test.selectItem(cola));
-        assertEquals("$0.45", test.transactionTotalCoins());
+        assertEquals("$0.45", test.display());
     }
     @Test
     public void notEnoughMoneyReturnsPriceOfChipsAndTotalInsertedAfter(){
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         assertEquals("PRICE $0.50", test.selectItem(chips));
-        assertEquals("$0.35", test.transactionTotalCoins());
+        assertEquals("$0.35", test.display());
     }
     @Test
     public void notEnoughMoneyReturnsPriceOfCandyAndTotalInsertedAfter(){
         test.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals("PRICE $0.65", test.selectItem(candy));
-        assertEquals("$0.10", test.transactionTotalCoins());
+        assertEquals("$0.10", test.display());
     }
     @Test
     public void extraMoneyReturedAfterColaTransaction(){
@@ -196,5 +199,9 @@ public class VendingMachineTransactionTest {
         assertEquals("SOLD OUT", test.selectItem(cola));
         assertEquals("2 Quarters, 2 Dimes, 0 Nickels", test.getCoinDispenser().getCoinAmount());
         assertEquals(0.7, test.getCurrentAmount(), 0.01);
+    }
+    @Test
+    public void displaysExactChangeOnlyWhenDispenserIsEmpty(){
+        assertEquals("EXACT CHANGE ONLY", test.display());
     }
 }

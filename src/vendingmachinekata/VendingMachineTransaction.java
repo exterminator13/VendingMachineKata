@@ -19,7 +19,10 @@ public class VendingMachineTransaction {
     public CoinDispenser getCoinDispenser(){
         return this.coinDispenser;
     }
-    public String transactionTotalCoins(){
+    public String display(){
+        if(this.coinDispenser.getAmountInMachine().getAmount() == 0.00){
+            return "EXACT CHANGE ONLY";
+        }
         if(this.currentAmount.toString().equals("$0.00")){
             return "INSERT COINS";
         }else{
