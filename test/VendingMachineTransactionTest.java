@@ -27,6 +27,9 @@ public class VendingMachineTransactionTest {
     public void setUp(){
         CoinDispenser coinDispenser = new CoinDispenser();
         test = new VendingMachineTransaction(coinDispenser);
+        candy.setStock(1);
+        cola.setStock(1);
+        chips.setStock(1);
     }
     @Test
     public void displaysInsertCoinWhileNotInTransaction(){
@@ -171,5 +174,14 @@ public class VendingMachineTransactionTest {
     @Test
     public void selectingReturnCoinsWithNoMoneyInserted(){
         assertEquals("0 Quarters, 0 Dimes, 0 Nickels", test.returnCoins());
+    }
+    @Test
+    public void ifItemIsNotInStockItemIsNotSoldAndDisplaysSoldOut(){
+        cola.setStock(0);
+        candy.setStock(0);
+        chips.setStock(0);
+        assertEquals("SOLD OUT", test.selectItem(cola));
+        assertEquals("SOLD OUT", test.selectItem(candy));
+        assertEquals("SOLD OUT", test.selectItem(chips));
     }
 }

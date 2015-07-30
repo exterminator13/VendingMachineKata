@@ -12,9 +12,6 @@ public class VendingMachineTransaction {
         this.coinDispenser = coinDispenser; 
         this.transactionDispenser = new CoinDispenser();
         this.transactionDispenser.setCoins(coinDispenser.getQuarters(), coinDispenser.getDimes(), coinDispenser.getNickels());
-        this.cola = new Item(1.00);
-        this.candy = new Item(0.65);
-        this.chips = new Item(0.50);
     }
     public double getCurrentAmount(){
         return this.currentAmount.getAmount();
@@ -48,18 +45,22 @@ public class VendingMachineTransaction {
         return 0;
     }
     public String selectItem(Item item){
-        if(this.currentAmount.getAmount() == 0.00){
-            return item.getMoney().toString();
-        }else if (this.currentAmount.getAmount() < item.getPrice()){
-            return "PRICE " + item.getMoney().toString();
-        }else if(this.currentAmount.getAmount() >= item.getPrice()){
-            this.currentAmount.removeMoney(item.getPrice());
-            if(this.currentAmount.getAmount() > 0.00){
-                return this.makeChange();
+        if(item.getStock() == 0){
+            return "SOLD OUT";
+        }else{
+            if(this.currentAmount.getAmount() == 0.00){
+                return item.getMoney().toString();
+            }else if (this.currentAmount.getAmount() < item.getPrice()){
+                return "PRICE " + item.getMoney().toString();
+            }else if(this.currentAmount.getAmount() >= item.getPrice()){
+                this.currentAmount.removeMoney(item.getPrice());
+                if(this.currentAmount.getAmount() > 0.00){
+                    return this.makeChange();
+                }
+                return "THANK YOU";
             }
-            return "THANK YOU";
+            return "";
         }
-        return "";
     }
     public String makeChange(){
         this.currentAmount.setAmount(this.coinDispenser.round(this.currentAmount.getAmount()));
