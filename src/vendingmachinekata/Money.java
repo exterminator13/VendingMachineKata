@@ -12,6 +12,9 @@ public class Money {
     public double getAmount(){
         return this.money;
     }
+    public void setAmount(double amount){
+        this.money = amount;
+    }
     @Override
     public String toString(){
         DecimalFormat decimalFormat = new DecimalFormat("####0.00");

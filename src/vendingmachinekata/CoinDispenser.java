@@ -28,7 +28,7 @@ public class CoinDispenser {
     public void addNickels(int amount){
         this.nickels = this.nickels + amount;
         this.amountInMachine.addMoney(.05 * amount);
-    }    
+    } 
     public String stringMaker(int quarterAmount, int dimeAmount, int nickelAmount){
         String quarter = " Quarters, ";
         String dime = " Dimes, ";
@@ -47,7 +47,7 @@ public class CoinDispenser {
     public String getCoinAmount(){
         return stringMaker(this.quarters, this.dimes, this.nickels);
     }
-    public static double round(double number){
+    public double round(double number){
         BigDecimal bigDecimal = new BigDecimal(number);
         bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
         return bigDecimal.doubleValue();
@@ -71,7 +71,7 @@ public class CoinDispenser {
                 amountReturned = amountReturned + .25;
                 amountReturned = round(amountReturned);
                 amountToReturn = round(amountToReturn);
-            }else if(amountToReturn >= .10 && dimesLeft > 0){
+            }else if(amountToReturn >= .1 && dimesLeft > 0){
                 amountToReturn = amountToReturn - .1;
                 dimesLeft = dimesLeft - 1;
                 dimesReturned++;
