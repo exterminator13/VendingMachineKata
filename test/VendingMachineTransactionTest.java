@@ -168,4 +168,8 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(nickelWeight, nickelDiameter);
         assertEquals("1 Quarter, 1 Dime, 1 Nickel", test.returnCoins());
     }
+    @Test
+    public void selectingReturnCoinsWithNoMoneyInserted(){
+        assertEquals("0 Quarters, 0 Dimes, 0 Nickels", test.returnCoins());
+    }
 }
