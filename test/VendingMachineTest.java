@@ -28,10 +28,20 @@ public class VendingMachineTest {
     }
     @Test
     public void inputNumberForItemWithNoStockReturnsSoldOut(){ 
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n".getBytes());
+        String selection = "1\n" + "2\n" + "3\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(selection.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals("EXACT CHANGE ONLY\n" + "SOLD OUT\n"));
+        assertTrue(outStream.toString().contentEquals("EXACT CHANGE ONLY\n" + "SOLD OUT\n"));
+    }
+    @Test
+    public void vendingMachineDisplaysAmountForItemWithNoCoinsInserted(){
+        vendingMachine.stockItem(1, 20);
+        String selection = "1\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(selection.getBytes());
+        System.setIn(in);
+        vendingMachine.run();
+        assertTrue(outStream.toString().contentEquals("EXACT CHANGE ONLY\n" + "$1.00\n"));
     }
     @After
     public void tearDown(){

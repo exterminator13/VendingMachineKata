@@ -27,6 +27,14 @@ public class VendingMachine implements Runnable{
     public Item itemSelector(int itemNumber){
         return this.items.get(itemNumber);
     }
+    public boolean stockItem(int itemNumber, int amount){
+        itemNumber = itemNumber - 1;
+        if(this.items.size() > itemNumber && itemNumber >= 0){
+            itemSelector(itemNumber).setStock(amount);
+            return true;
+        }
+        return false;
+    }
     @Override
     public void run(){
         Scanner reader = new Scanner(System.in);
