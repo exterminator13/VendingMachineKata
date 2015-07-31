@@ -20,7 +20,8 @@ public class VendingMachineTest {
     }
     @Test
     public void machineDisplaysExactChangeOnlyWhenNoChange(){
-        ByteArrayInputStream in = new ByteArrayInputStream("1\n".getBytes());
+        String selection = "1\n" + "0\n";
+        ByteArrayInputStream in = new ByteArrayInputStream(selection.getBytes());
         System.setIn(in);
         vendingMachine.run();
         assertTrue(outStream.toString().contains("EXACT CHANGE ONLY\n"));
@@ -28,20 +29,25 @@ public class VendingMachineTest {
     }
     @Test
     public void inputNumberForItemWithNoStockReturnsSoldOut(){ 
-        String selection = "1\n" + "2\n" + "3\n";
+        String selection = "1\n" + "2\n" + "3\n" + "0\n";
         ByteArrayInputStream in = new ByteArrayInputStream(selection.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().contentEquals("EXACT CHANGE ONLY\n" + "SOLD OUT\n"));
+        assertTrue(outStream.toString().equals("EXACT CHANGE ONLY\n" + "SOLD OUT\n" +
+        "EXACT CHANGE ONLY\n" + "SOLD OUT\n" + "EXACT CHANGE ONLY\n" + "SOLD OUT\n" + 
+        "EXACT CHANGE ONLY\n"));
     }
     @Test
     public void vendingMachineDisplaysAmountForItemWithNoCoinsInserted(){
         vendingMachine.stockItem(1, 20);
-        String selection = "1\n";
+        vendingMachine.stockItem(2, 10);
+        vendingMachine.stockItem(3, 10);
+        String selection = "1\n" + "2\n" + "3\n" + "0\n";
         ByteArrayInputStream in = new ByteArrayInputStream(selection.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().contentEquals("EXACT CHANGE ONLY\n" + "$1.00\n"));
+        assertTrue(outStream.toString().equals("EXACT CHANGE ONLY\n" + "$1.00\n"
+        + "EXACT CHANGE ONLY\n" + "$0.65\n" + "EXACT CHANGE ONLY\n" + "$0.50\n" + "EXACT CHANGE ONLY\n"));
     }
     @After
     public void tearDown(){

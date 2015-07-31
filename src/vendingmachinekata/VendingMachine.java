@@ -38,13 +38,18 @@ public class VendingMachine implements Runnable{
     @Override
     public void run(){
         Scanner reader = new Scanner(System.in);
-        System.out.print(this.vendingMachineTransaction.display()+"\n");
-        int item = Integer.parseInt(reader.nextLine()) - 1;
-        if(this.items.size() > item && item >= 0){
-            System.out.print(this.vendingMachineTransaction.selectItem(this.itemSelector(item))+"\n");
-        }else{
-            System.out.print("INVALID SELECTION\n");
+        while(true){
+            System.out.print(this.vendingMachineTransaction.display()+"\n");
+            //Subtract one to accommodate for 0 based index
+            int item = Integer.parseInt(reader.nextLine()) - 1;
+            if(item == -1){
+                break;
+            }
+            if(this.items.size() > item && item >= 0){
+                System.out.print(this.vendingMachineTransaction.selectItem(this.itemSelector(item))+"\n");
+            }else{
+                System.out.print("INVALID SELECTION\n");
+            }
         }
-        
     }
 }
