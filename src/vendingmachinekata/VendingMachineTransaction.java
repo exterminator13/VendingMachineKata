@@ -58,6 +58,7 @@ public class VendingMachineTransaction {
             }else if(this.currentAmount.getAmount() >= item.getPrice()){
                 this.currentAmount.removeMoney(item.getPrice());
                 if(this.currentAmount.getAmount() > 0.00){
+                    //Debating on changing this
                     return "THANK YOU " + this.makeChange();
                 }
                 return "THANK YOU";
@@ -78,6 +79,7 @@ public class VendingMachineTransaction {
     public String returnCoins(){
         String coinsReturned = this.coinDispenser.getDifference(this.transactionDispenser);
         this.coinDispenser = this.transactionDispenser;
+        this.currentAmount.setAmount(0.00);
         return coinsReturned;
     }
 }

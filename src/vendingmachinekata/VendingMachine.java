@@ -40,15 +40,25 @@ public class VendingMachine implements Runnable{
         Scanner reader = new Scanner(System.in);
         while(true){
             System.out.print(this.vendingMachineTransaction.display()+"\n");
-            //Subtract one to accommodate for 0 based index
-            int item = Integer.parseInt(reader.nextLine()) - 1;
-            if(item == -1){
-                break;
-            }
-            if(this.items.size() > item && item >= 0){
-                System.out.print(this.vendingMachineTransaction.selectItem(this.itemSelector(item))+"\n");
+            String input = reader.nextLine();
+                if(input.contains("g")){
+                    String diameter = reader.nextLine();
+                    if(diameter.contains("in")){
+                        this.vendingMachineTransaction.coinRecognition(input, diameter);
+                    }
             }else{
-                System.out.print("INVALID SELECTION\n");
+                //Assigned default value to prevent exceptions
+                int item = -2;
+                //Subtract one to accommodate for 0 based index
+                item = Integer.parseInt(input) - 1;
+                if(item == -1){
+                    break;
+                }
+                if(this.items.size() > item && item >= 0){
+                    System.out.print(this.vendingMachineTransaction.selectItem(this.itemSelector(item))+"\n");
+                }else{
+                    System.out.print("INVALID SELECTION\n");
+                }
             }
         }
     }
