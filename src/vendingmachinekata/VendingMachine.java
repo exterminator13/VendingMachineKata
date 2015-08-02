@@ -1,6 +1,5 @@
 
 package vendingmachinekata;
-import java.lang.Runnable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -41,16 +40,19 @@ public class VendingMachine implements Runnable{
         while(true){
             System.out.print(this.vendingMachineTransaction.display()+"\n");
             String input = reader.nextLine();
-                if(input.contains("g")){
-                    String diameter = reader.nextLine();
-                    if(diameter.contains("in")){
-                        this.vendingMachineTransaction.coinRecognition(input, diameter);
-                    }
+            if(input.contains("g")){
+                String diameter = reader.nextLine();
+                if(diameter.contains("in")){
+                    this.vendingMachineTransaction.coinRecognition(input, diameter);
+                }
             }else{
                 //Assigned default value to prevent exceptions
                 int item = -2;
                 //Subtract one to accommodate for 0 based index
+                try{
                 item = Integer.parseInt(input) - 1;
+                }catch(Exception d){
+                }
                 if(item == -1){
                     break;
                 }

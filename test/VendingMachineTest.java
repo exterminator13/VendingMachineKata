@@ -79,6 +79,19 @@ public class VendingMachineTest {
         + "INSERT COINS\n" + "$0.25\n" + "$0.50\n" + "$0.60\n" + "$0.65\n"
         + "THANK YOU\n" + "INSERT COINS\n" + "$0.25\n" + "$0.50\n" + "THANK YOU\n" + "INSERT COINS\n"));
     }
+    @Test
+    public void displaysPriceAndThenAmountAfterSelectingItemWithInsufficentFunds(){
+        vendingMachine.stockItem(1, 3);
+        vendingMachine.stockItem(2, 4);
+        vendingMachine.stockItem(3, 1);
+        String input = quarterWeight + quarterDiameter + "1\n" + dimeWeight + dimeDiameter + "2\n" + nickelWeight
+        + nickelDiameter + "3\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendingMachine.run();
+        assertTrue(outStream.toString().equals(exact + "$0.25\n"+ "PRICE $1.00\n" + "$0.25\n" + "$0.35\n"
+        + "PRICE $0.65\n" + "$0.35\n" + "$0.40\n" + "PRICE $0.50\n" + "$0.40\n"));
+    }
     @After
     public void tearDown(){
         System.setIn(null);
