@@ -136,7 +136,7 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
-        assertEquals("0 Quarters, 0 Dimes, 1 Nickel", test.selectItem(cola));
+        assertEquals("THANK YOU\n0 Quarters, 0 Dimes, 1 Nickel returned", test.selectItem(cola));
         assertEquals("3 Quarters, 3 Dimes, 4 Nickels", test.getCoinDispenser().getCoinAmount());
     }
     @Test
@@ -145,7 +145,7 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
-        assertEquals("0 Quarters, 1 Dime, 0 Nickels", test.selectItem(candy));
+        assertEquals("THANK YOU\n0 Quarters, 1 Dime, 0 Nickels returned", test.selectItem(candy));
     }
     @Test
     public void extraMoneyReturnedAfterChipsTransaction(){
@@ -154,7 +154,7 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
-        assertEquals("0 Quarters, 0 Dimes, 1 Nickel", test.selectItem(chips));
+        assertEquals("THANK YOU\n0 Quarters, 0 Dimes, 1 Nickel returned", test.selectItem(chips));
     }
     @Test
     public void returnsWorkingCoinDispenser(){
@@ -203,5 +203,15 @@ public class VendingMachineTransactionTest {
     @Test
     public void displaysExactChangeOnlyWhenDispenserIsEmpty(){
         assertEquals("EXACT CHANGE ONLY", test.display());
+    }
+    @Test
+    public void canNotMakeChangeDisplayedWhenNotEnoughChange(){
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        assertEquals("Can't make change", test.selectItem(cola));
     }
 }

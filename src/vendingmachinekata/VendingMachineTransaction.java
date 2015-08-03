@@ -58,8 +58,11 @@ public class VendingMachineTransaction {
             }else if(this.currentAmount.getAmount() >= item.getPrice()){
                 this.currentAmount.removeMoney(item.getPrice());
                 if(this.currentAmount.getAmount() > 0.00){
-                    //Debating on changing this
-                    return "THANK YOU " + this.makeChange();
+                    String changeMade = this.makeChange();
+                    if(changeMade.equals("Can't make change")){
+                        return changeMade;
+                    }
+                    return "THANK YOU\n" + changeMade;
                 }
                 return "THANK YOU";
             }
@@ -74,7 +77,7 @@ public class VendingMachineTransaction {
             return changeMade;
         }
         this.currentAmount.removeMoney(amountToReturn);
-        return changeMade;
+        return changeMade + " returned";
     }
     public String returnCoins(){
         String coinsReturned = this.coinDispenser.getDifference(this.transactionDispenser);
