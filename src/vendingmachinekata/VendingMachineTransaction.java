@@ -48,23 +48,25 @@ public class VendingMachineTransaction {
         return 0;
     }
     public String selectItem(Item item){
-        if(item.getStock() == 0){
+        if(item.getStock() <= 0){
             return "SOLD OUT";
         }else{
             if(this.currentAmount.getAmount() == 0.00){
                 return item.getMoney().toString();
             }else if (this.currentAmount.getAmount() < item.getPrice()){
                 return "PRICE " + item.getMoney().toString();
-            }else if(this.currentAmount.getAmount() >= item.getPrice()){
+            }else if(this.currentAmount.getAmount() == item.getPrice()){
                 this.currentAmount.removeMoney(item.getPrice());
-                if(this.currentAmount.getAmount() > 0.00){
-                    String changeMade = this.makeChange();
-                    if(changeMade.equals("Can't make change")){
-                        return changeMade;
-                    }
-                    return "THANK YOU\n" + changeMade;
-                }
                 return "THANK YOU";
+            }else if(this.currentAmount.getAmount() > 0.00){
+                this.currentAmount.removeMoney(item.getPrice());
+                String changeMade = this.makeChange();
+                if(changeMade.equals("Can't make change")){
+                    this.currentAmount.addMoney(item.getPrice());
+                    return changeMade;
+                }else{ 
+                return "THANK YOU\n" + changeMade;
+                }
             }
             return "";
         }

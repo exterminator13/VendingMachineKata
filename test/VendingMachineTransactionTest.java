@@ -214,4 +214,14 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals("Can't make change", test.selectItem(cola));
     }
+    @Test
+    public void removesItemFromInventoryWhenTransactionSuccessful(){
+        candy.setStock(1);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.selectItem(candy);
+        
+    }
 }
