@@ -23,5 +23,7 @@ public class Item {
     public Money getMoney(){
         return this.money;
     }
-    
+    public void itemSold(){
+        this.stock = this.stock - 1;
+    }
 }

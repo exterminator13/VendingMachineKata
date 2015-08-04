@@ -221,7 +221,8 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
-        test.selectItem(candy);
-        
+        test.coinRecognition(nickelWeight, nickelDiameter);
+        assertEquals("THANK YOU\n" + "0 Quarters, 1 Dime, 0 Nickels returned", test.selectItem(candy));  
+        assertEquals("SOLD OUT", test.selectItem(candy));
     }
 }

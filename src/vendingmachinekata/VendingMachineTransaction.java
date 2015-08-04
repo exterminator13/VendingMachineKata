@@ -56,6 +56,7 @@ public class VendingMachineTransaction {
             }else if (this.currentAmount.getAmount() < item.getPrice()){
                 return "PRICE " + item.getMoney().toString();
             }else if(this.currentAmount.getAmount() == item.getPrice()){
+                item.itemSold();
                 this.currentAmount.removeMoney(item.getPrice());
                 return "THANK YOU";
             }else if(this.currentAmount.getAmount() > 0.00){
@@ -65,7 +66,8 @@ public class VendingMachineTransaction {
                     this.currentAmount.addMoney(item.getPrice());
                     return changeMade;
                 }else{ 
-                return "THANK YOU\n" + changeMade;
+                    item.itemSold();
+                    return "THANK YOU\n" + changeMade;
                 }
             }
             return "";
