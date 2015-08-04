@@ -225,4 +225,14 @@ public class VendingMachineTransactionTest {
         assertEquals("THANK YOU\n" + "0 Quarters, 1 Dime, 0 Nickels returned", test.selectItem(candy));  
         assertEquals("SOLD OUT", test.selectItem(candy));
     }
+    @Test
+    public void doesNotRemoveItemFromInventoryWhenTransactionFails(){
+        candy.setStock(1);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        assertEquals("PRICE $0.65", test.selectItem(candy));
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(nickelWeight, nickelDiameter);
+        assertEquals("THANK YOU", test.selectItem(candy));
+    }
 }
