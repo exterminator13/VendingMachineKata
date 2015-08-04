@@ -34,6 +34,17 @@ public class VendingMachine implements Runnable{
         }
         return false;
     }
+    public void stockCoins(int coinValue, int amount){
+        if(coinValue == 25){
+            this.coinDispenser.addQuarters(amount);
+        }
+        if(coinValue == 10){
+            this.coinDispenser.addDimes(amount);
+        }
+        if(coinValue == 5){
+            this.coinDispenser.addNickels(amount);
+        }
+    }
     @Override
     public void run(){
         Scanner reader = new Scanner(System.in);

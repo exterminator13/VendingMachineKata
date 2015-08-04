@@ -21,6 +21,7 @@ public class VendingMachineTest {
     String nickelWeight = "5.000 g\n";
     String nickelDiameter = "0.835 in\n";
     String exact = "EXACT CHANGE ONLY\n";
+    String insert = "INSERT COINS\n";
     String thank = "THANK YOU\n";
     String sold = "SOLD OUT\n";
     @Before
@@ -91,6 +92,22 @@ public class VendingMachineTest {
         vendingMachine.run();
         assertTrue(outStream.toString().equals(exact + "$0.25\n"+ "PRICE $1.00\n" + "$0.25\n" + "$0.35\n"
         + "PRICE $0.65\n" + "$0.35\n" + "$0.40\n" + "PRICE $0.50\n" + "$0.40\n"));
+    }
+    @Test
+    public void returnsCorrectAmountOfCoinsIntoCoinDispenserWhenItCanMakeChange(){
+        vendingMachine.stockItem(2, 4);
+        vendingMachine.stockItem(1, 3);
+        vendingMachine.stockItem(3, 1);
+        vendingMachine.stockCoins(10, 2);
+        String input = quarterWeight + quarterDiameter + dimeWeight + dimeDiameter
+        + dimeWeight + dimeDiameter + dimeWeight + dimeDiameter 
+        + "3\n" + nickelWeight + nickelDiameter + "3\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendingMachine.run();
+        assertTrue(outStream.toString().equals(insert + "$0.25\n" + "$0.35\n"
+        + "$0.45\n" + "$0.55\n" + "Can't make change\n" + "$0.55\n"
+        + "$0.60\n" + "THANK YOU\n" + "0 Quarters, 1 Dime, 0 Nickels returned\n" + insert));
     }
     @After
     public void tearDown(){
