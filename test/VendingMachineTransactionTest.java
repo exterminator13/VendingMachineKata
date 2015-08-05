@@ -237,4 +237,21 @@ public class VendingMachineTransactionTest {
         test.coinRecognition(nickelWeight, nickelDiameter);
         assertEquals("THANK YOU", test.selectItem(candy));
     }
+    @Test
+    public void accurateCoinAmountAfterMultipleTransactions(){
+        test.startNewTransaction();
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(quarterWeight, quarterDiameter);
+        test.coinRecognition(nickelWeight, nickelDiameter);
+        assertEquals(0.40, test.getCurrentAmount(), 0.01);
+        assertEquals("1 Quarter, 1 Dime, 1 Nickel", test.returnCoins());
+        assertEquals(0.00, test.getCurrentAmount(), 0.01);
+        test.startNewTransaction();
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        test.coinRecognition(dimeWeight, dimeDiameter);
+        assertEquals(0.20, test.getCurrentAmount(), 0.01);
+        assertEquals("0 Quarters, 2 Dimes, 0 Nickels", test.returnCoins());
+        assertEquals(0.00, test.getCurrentAmount(), 0.01);
+        assertEquals("0 Quarters, 0 Dimes, 0 Nickels", test.getCoinDispenser().getCoinAmount());
+    }
 }
