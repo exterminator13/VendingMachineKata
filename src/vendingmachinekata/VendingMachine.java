@@ -75,6 +75,7 @@ public class VendingMachine implements Runnable{
                     if(this.items.size() > item && item >= 0){
                         String itemSelector = this.vendingMachineTransaction.selectItem(this.itemSelector(item));
                         if(itemSelector.contains("THANK YOU")){
+                            this.items.get(item).itemSold();
                             this.vendingMachineTransaction.startNewTransaction();
                         }
                         System.out.print(itemSelector+"\n");
