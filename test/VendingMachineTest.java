@@ -109,6 +109,18 @@ public class VendingMachineTest {
         + "$0.45\n" + "$0.55\n" + "Can't make change\n" + "$0.55\n"
         + "$0.60\n" + "THANK YOU\n" + "0 Quarters, 1 Dime, 0 Nickels returned\n" + insert));
     }
+    @Test
+    public void coinsAreReturnedToCustomerMidTransaction(){
+        vendingMachine.stockItem(1, 3);
+        vendingMachine.stockCoins(10, 2);
+        String input = quarterWeight + quarterDiameter + dimeWeight + dimeDiameter 
+        + nickelWeight + nickelDiameter + "return\n" + "1\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendingMachine.run();
+        assertTrue(outStream.toString().equals(insert + "$0.25\n" + "$0.35\n" 
+        + "$0.40\n" + "1 Quarter, 1 Dime, 1 Nickel\n" + insert + "$1.00\n" + insert));
+    }
     @After
     public void tearDown(){
         System.setIn(null);

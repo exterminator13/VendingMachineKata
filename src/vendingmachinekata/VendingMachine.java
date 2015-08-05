@@ -48,29 +48,39 @@ public class VendingMachine implements Runnable{
     @Override
     public void run(){
         Scanner reader = new Scanner(System.in);
+        this.vendingMachineTransaction.startNewTransaction();      
         while(true){
             System.out.print(this.vendingMachineTransaction.display()+"\n");
             String input = reader.nextLine();
-            if(input.contains("g")){
-                String diameter = reader.nextLine();
-                if(diameter.contains("in")){
-                    this.vendingMachineTransaction.coinRecognition(input, diameter);
-                }
+            if(input.equals("return")){
+                System.out.print(this.vendingMachineTransaction.returnCoins()+"\n");
+                this.vendingMachineTransaction.startNewTransaction();
             }else{
-                //Assigned default value to prevent exceptions
-                int item = -2;
-                //Subtract one to accommodate for 0 based index
-                try{
-                item = Integer.parseInt(input) - 1;
-                }catch(Exception d){
-                }
-                if(item == -1){
-                    break;
-                }
-                if(this.items.size() > item && item >= 0){
-                    System.out.print(this.vendingMachineTransaction.selectItem(this.itemSelector(item))+"\n");
+                if(input.contains("g")){
+                    String diameter = reader.nextLine();
+                    if(diameter.contains("in")){
+                        this.vendingMachineTransaction.coinRecognition(input, diameter);
+                    }
                 }else{
-                    System.out.print("INVALID SELECTION\n");
+                    //Assigned default value to prevent exceptions
+                    int item = -2;
+                    //Subtract one to accommodate for 0 based index
+                    try{
+                    item = Integer.parseInt(input) - 1;
+                    }catch(Exception d){
+                    }
+                    if(item == -1){
+                        break;
+                    }
+                    if(this.items.size() > item && item >= 0){
+                        String itemSelector = this.vendingMachineTransaction.selectItem(this.itemSelector(item));
+                        if(itemSelector.contains("THANK YOU")){
+                            this.vendingMachineTransaction.startNewTransaction();
+                        }
+                        System.out.print(itemSelector+"\n");
+                    }else{
+                        System.out.print("INVALID SELECTION\n");
+                    }
                 }
             }
         }

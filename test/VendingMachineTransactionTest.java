@@ -169,6 +169,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void returnCoinsAddedDuringTransaction(){
+        test.startNewTransaction();
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(nickelWeight, nickelDiameter);
@@ -176,6 +177,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void selectingReturnCoinsWithNoMoneyInserted(){
+        test.startNewTransaction();
         assertEquals("0 Quarters, 0 Dimes, 0 Nickels", test.returnCoins());
     }
     @Test
