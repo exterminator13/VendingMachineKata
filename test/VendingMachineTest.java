@@ -38,7 +38,6 @@ public class VendingMachineTest {
         System.setIn(in);
         vendingMachine.run();
         assertTrue(outStream.toString().contains("EXACT CHANGE ONLY\n"));
-        
     }
     @Test
     public void inputNumberForItemWithNoStockReturnsSoldOut(){ 
@@ -134,6 +133,16 @@ public class VendingMachineTest {
         assertTrue(outStream.toString().equals(insert + "$0.25\n" + "$0.50\n"
         + "$0.75\n" + "$1.00\n" + thank + insert + sold + insert 
         + "0 Quarters, 0 Dimes, 0 Nickels\n" + insert));
+    }
+    @Test
+    public void invalidCoinsAreReturnedToCustomer(){
+        String input = "5.670 g\n" + "0.789 in\n" + "5.670 g\n" + "0.955 in\n" + "3.479 g\n"
+        + "0.835 in\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendingMachine.run();
+        assertTrue(outStream.toString().equals(exact + "Coin put into dispenser\n"
+        + exact + "$0.25\n" + "Coin put into dispenser\n" + "$0.25\n"));
     }
     @After
     public void tearDown(){

@@ -59,7 +59,10 @@ public class VendingMachine implements Runnable{
                 if(input.contains("g")){
                     String diameter = reader.nextLine();
                     if(diameter.contains("in")){
-                        this.vendingMachineTransaction.coinRecognition(input, diameter);
+                        boolean validCoin = this.vendingMachineTransaction.coinRecognition(input, diameter);
+                        if(validCoin == false){
+                            System.out.print("Coin put into dispenser\n");
+                        }
                     }
                 }else{
                     //Assigned default value to prevent exceptions

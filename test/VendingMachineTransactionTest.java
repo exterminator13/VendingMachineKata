@@ -38,15 +38,15 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void recognizesWeightAndDiameterOfQuater(){
-        assertEquals(25, test.coinRecognition("5.670 g", "0.955 in"));
+        assertTrue(test.coinRecognition("5.670 g", "0.955 in"));
     }
     @Test
     public void recognizesWeightAndDiameterOfDime(){
-        assertEquals(10, test.coinRecognition("2.268 g", "0.705 in"));
+        assertTrue(test.coinRecognition("2.268 g", "0.705 in"));
     }
     @Test
     public void recognizesWeightAndDiameterOfNickel(){
-        assertEquals(5, test.coinRecognition("5.000 g", "0.835 in"));
+        assertTrue(test.coinRecognition("5.000 g", "0.835 in"));
     }
     @Test
     public void selectColaFromMachineWithNoMoneyReturnsTotalPrice(){

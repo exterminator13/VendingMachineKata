@@ -31,23 +31,23 @@ public class VendingMachineTransaction {
             return this.currentAmount.toString();
         }
     }
-    public int coinRecognition(String weight, String diameter){
+    public boolean coinRecognition(String weight, String diameter){
         if(weight.equals("5.670 g") && diameter.equals("0.955 in")){
             this.currentAmount.addMoney(.25);
             this.coinDispenser.addQuarters(1);
-            return 25;
+            return true;
         }
         if(weight.equals("2.268 g") && diameter.equals("0.705 in")){
             this.currentAmount.addMoney(.10);
             this.coinDispenser.addDimes(1);
-            return 10;
+            return true;
         }
         if(weight.equals("5.000 g") && diameter.equals("0.835 in")){
             this.currentAmount.addMoney(.05);
             this.coinDispenser.addNickels(1);
-            return 5;
+            return true;
         }
-        return 0;
+        return false;
     }
     public String selectItem(Item item){
         if(item.getStock() <= 0){
