@@ -94,11 +94,11 @@ public class VendorAccessTest {
     }
     @Test
     public void invalidSelectionAtStartDisplaysErrorMessageKeepsGoing(){
-        String input = "2098\n" + "ahflk\n";
+        String input = "2098\n" + "ahflk\n" + "0\n";
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
         assertTrue(outStream.toString().equals(instructions + welcome + "INVALID SELECTION\n"
-        + welcome + "INVALID SELECTION\n"));
+        + welcome + "INVALID SELECTION\n" + welcome));
     }
 }
