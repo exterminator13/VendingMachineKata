@@ -111,4 +111,16 @@ public class VendorAccessTest {
         + "INVALID VALUE\n" + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n"
         + "INVALID AMOUNT\n" + welcome + "COIN VALUE:\n" + "INVALID VALUE\n" + welcome));
     }
+    @Test
+    public void invalidSelectinAtAddingNewItemDisplaysErrorMessageKeepsGoing(){
+        String input = "4\n" + "LKJoiu823098\n" + "afdlk\n" + "1\n" + "4\n" + "4\n"
+        + "holdasde\n" + "3\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendorAccess.run();
+        assertTrue(outStream.toString().equals(instructions + welcome + "ENTER ITEM NAME:\n"
+        + "PRICE:\n" + "INVALID PRICE\n" + welcome + "ITEM'S NUMBER TO BE STOCKED:\n"
+        + "INVALID ITEM NUMBER\n" + welcome + "ENTER ITEM NAME:\n" + "PRICE:\n"
+        + "NEW ITEM: HOLDASDE\n" + "PRICE: $3.00\n" + "ITEM NUMBER: 4\n" + welcome));
+    }
 }

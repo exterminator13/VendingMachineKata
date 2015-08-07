@@ -96,8 +96,7 @@ public class VendorAccess implements Runnable{
                     }
                 }else{
                     System.out.print("INVALID VALUE\n");
-                }
-                
+                }               
             }
             if(input == 3){
                 this.vendingMachine.coinDispenser.setCoins(0, 0, 0);
@@ -111,12 +110,20 @@ public class VendorAccess implements Runnable{
                 System.out.print("ENTER ITEM NAME:\n");
                 String itemName = reader.nextLine();
                 System.out.print("PRICE:\n");
-                double price = Double.parseDouble(reader.nextLine());
-                Item newItem = new Item(itemName, price);
-                this.items.add(newItem);
-                System.out.print("NEW ITEM: " + newItem.getName().toUpperCase() + "\n"
-                + "PRICE: " + newItem.getMoney() + "\n" + "ITEM NUMBER: " + this.items.size()
-                + "\n");
+                double price = -1.00;
+                try{
+                    price = Double.parseDouble(reader.nextLine());
+                }catch(Exception d){
+                }
+                if(price > 0.00){
+                    Item newItem = new Item(itemName, price);
+                    this.items.add(newItem);
+                    System.out.print("NEW ITEM: " + newItem.getName().toUpperCase() + "\n"
+                    + "PRICE: " + newItem.getMoney() + "\n" + "ITEM NUMBER: " + this.items.size()
+                    + "\n");
+                }else{
+                    System.out.print("INVALID PRICE\n");
+                }
             }
             if(input == 0){
                 break;
