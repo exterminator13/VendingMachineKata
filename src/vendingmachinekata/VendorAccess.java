@@ -68,6 +68,14 @@ public class VendorAccess implements Runnable{
                 int coinAmount = Integer.parseInt(reader.nextLine());
                 System.out.print(stockCoins(coinValue, coinAmount) + "\n");
             }
+            if(input == 3){
+                this.vendingMachine.coinDispenser.setCoins(0, 0, 0);
+                if("0 Quarters, 0 Dimes, 0 Nickels".equals(this.vendingMachine.coinDispenser.getCoinAmount())){
+                    System.out.print("COINS EMPTIED\n");
+                }else{
+                    System.out.print("ERROR\n");
+                }
+            }
             if(input == 0){
                 break;
             }
