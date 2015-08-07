@@ -92,4 +92,13 @@ public class VendorAccessTest {
         + welcome + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" + "ITEM: CHIPS\n"
         + "STOCK: 83\n" + welcome));
     }
+    @Test
+    public void invalidSelectionAtStartDisplaysErrorMessageKeepsGoing(){
+        String input = "2098\n" + "ahflk\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendorAccess.run();
+        assertTrue(outStream.toString().equals(instructions + welcome + "INVALID SELECTION\n"
+        + welcome + "INVALID SELECTION\n"));
+    }
 }

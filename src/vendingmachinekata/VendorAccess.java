@@ -105,7 +105,7 @@ public class VendorAccess implements Runnable{
                 break;
             }
             if(input < 0 || input > 4){
-                System.out.print("INVALID SELECTION");
+                System.out.print("INVALID SELECTION\n");
             }   
         }
     }
