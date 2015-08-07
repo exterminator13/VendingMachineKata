@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class VendingMachine implements Runnable{
     CoinDispenser coinDispenser;
     VendingMachineTransaction vendingMachineTransaction;
+    VendorAccess vendorAccess;
     Item cola;
     Item candy;
     Item chips;
@@ -21,40 +22,30 @@ public class VendingMachine implements Runnable{
         this.items.add(this.cola);
         this.items.add(this.candy);
         this.items.add(this.chips);
-        
+        this.vendorAccess = new VendorAccess(this);
+    }
+    public List getListOfItems(){
+        return this.items;
+    }
+    public VendorAccess getVendorAccess(){
+        return this.vendorAccess;
     }
     public Item itemSelector(int itemNumber){
         return this.items.get(itemNumber);
     }
-    public boolean stockItem(int itemNumber, int amount){
-        itemNumber = itemNumber - 1;
-        if(this.items.size() > itemNumber && itemNumber >= 0){
-            itemSelector(itemNumber).setStock(amount);
-            return true;
-        }
-        return false;
-    }
-    public void stockCoins(int coinValue, int amount){
-        if(coinValue == 25){
-            this.coinDispenser.addQuarters(amount);
-        }
-        if(coinValue == 10){
-            this.coinDispenser.addDimes(amount);
-        }
-        if(coinValue == 5){
-            this.coinDispenser.addNickels(amount);
-        }
-    }
     @Override
     public void run(){
         Scanner reader = new Scanner(System.in);
-        this.vendingMachineTransaction.startNewTransaction();      
+        this.vendingMachineTransaction.startNewTransaction();
         while(true){
             System.out.print(this.vendingMachineTransaction.display()+"\n");
             String input = reader.nextLine();
             if(input.equals("return")){
                 System.out.print(this.vendingMachineTransaction.returnCoins()+"\n");
                 this.vendingMachineTransaction.startNewTransaction();
+            }else if(input.equals("3689")){
+                vendorAccess.run();
+                System.out.print("EXITING\n");
             }else{
                 if(input.contains("g")){
                     String diameter = reader.nextLine();

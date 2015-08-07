@@ -7,10 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import vendingmachinekata.VendingMachine;
+import vendingmachinekata.VendorAccess;
 public class VendingMachineTest {
     VendingMachine vendingMachine;
     Scanner reader;
     ByteArrayInputStream in;
+    VendorAccess vendorAccess;
     private final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     public VendingMachineTest() {
     }
@@ -28,8 +30,7 @@ public class VendingMachineTest {
     public void setUp(){
         vendingMachine = new VendingMachine();
         System.setOut(new PrintStream(outStream));
-        System.setIn(in);
-        
+        vendorAccess = vendingMachine.getVendorAccess();
     }
     @Test
     public void machineDisplaysExactChangeOnlyWhenNoChange(){
@@ -51,9 +52,9 @@ public class VendingMachineTest {
     }
     @Test
     public void vendingMachineDisplaysAmountForItemWithNoCoinsInserted(){
-        vendingMachine.stockItem(1, 20);
-        vendingMachine.stockItem(2, 10);
-        vendingMachine.stockItem(3, 10);
+        vendorAccess.stockItem(1, 20);
+        vendorAccess.stockItem(2, 13);
+        vendorAccess.stockItem(3, 10);
         String selection = "1\n" + "2\n" + "3\n" + "0\n";
         in = new ByteArrayInputStream(selection.getBytes());
         System.setIn(in);
@@ -63,9 +64,9 @@ public class VendingMachineTest {
     }
     @Test
     public void vendingMachineDisplaysThankYouAfterEachTransactionOfExactAmount(){
-        vendingMachine.stockItem(1, 5);
-        vendingMachine.stockItem(2, 1);
-        vendingMachine.stockItem(3, 2);
+        vendorAccess.stockItem(1, 5);
+        vendorAccess.stockItem(2, 1);
+        vendorAccess.stockItem(3, 2);
         String input = quarterWeight + quarterDiameter + quarterWeight + quarterDiameter
         + quarterWeight + quarterDiameter + quarterWeight + quarterDiameter + "1\n"
         + quarterWeight + quarterDiameter + quarterWeight + quarterDiameter
@@ -81,9 +82,9 @@ public class VendingMachineTest {
     }
     @Test
     public void displaysPriceAndThenAmountAfterSelectingItemWithInsufficentFunds(){
-        vendingMachine.stockItem(1, 3);
-        vendingMachine.stockItem(2, 4);
-        vendingMachine.stockItem(3, 1);
+        vendorAccess.stockItem(1, 3);
+        vendorAccess.stockItem(2, 4);
+        vendorAccess.stockItem(3, 1);
         String input = quarterWeight + quarterDiameter + "1\n" + dimeWeight + dimeDiameter + "2\n" + nickelWeight
         + nickelDiameter + "3\n" + "0\n";
         in = new ByteArrayInputStream(input.getBytes());
@@ -94,10 +95,10 @@ public class VendingMachineTest {
     }
     @Test
     public void returnsCorrectAmountOfCoinsIntoCoinDispenserWhenItCanMakeChange(){
-        vendingMachine.stockItem(2, 4);
-        vendingMachine.stockItem(1, 3);
-        vendingMachine.stockItem(3, 1);
-        vendingMachine.stockCoins(10, 2);
+        vendorAccess.stockItem(2, 4);
+        vendorAccess.stockItem(1, 3);
+        vendorAccess.stockItem(3, 1);
+        vendorAccess.stockCoins(10, 2);
         String input = quarterWeight + quarterDiameter + dimeWeight + dimeDiameter
         + dimeWeight + dimeDiameter + dimeWeight + dimeDiameter 
         + "3\n" + nickelWeight + nickelDiameter + "3\n" + "0\n";
@@ -110,8 +111,8 @@ public class VendingMachineTest {
     }
     @Test
     public void coinsAreReturnedToCustomerMidTransaction(){
-        vendingMachine.stockItem(1, 3);
-        vendingMachine.stockCoins(10, 2);
+        vendorAccess.stockItem(1, 3);
+        vendorAccess.stockCoins(10, 2);
         String input = quarterWeight + quarterDiameter + dimeWeight + dimeDiameter 
         + nickelWeight + nickelDiameter + "return\n" + "1\n" + "0\n";
         in = new ByteArrayInputStream(input.getBytes());
@@ -122,8 +123,8 @@ public class VendingMachineTest {
     }
     @Test
     public void itemIsRemovedFromStockAfterSuccessfulTransaction(){
-        vendingMachine.stockItem(1, 1);
-        vendingMachine.stockCoins(10, 4);
+        vendorAccess.stockItem(1, 1);
+        vendorAccess.stockCoins(10, 4);
         String input = quarterWeight + quarterDiameter + quarterWeight
         + quarterDiameter + quarterWeight + quarterDiameter + quarterWeight + quarterDiameter
         + "1\n" + "1\n" + "return\n" + "0\n";
