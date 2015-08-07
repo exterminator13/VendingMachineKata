@@ -145,6 +145,15 @@ public class VendingMachineTest {
         assertTrue(outStream.toString().equals(exact + "Coin returned\n"
         + exact + "$0.25\n" + "Coin returned\n" + "$0.25\n"));
     }
+    @Test
+    public void vendingMachineDisplaysErrorIfSelectionIsInvalid(){
+        String input = "098\n" + "aaslkdjf\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendingMachine.run();
+        assertTrue(outStream.toString().equals(exact + "INVALID SELECTION\n"
+        + exact + "INVALID SELECTION\n" + exact));
+    }
     @After
     public void tearDown(){
         System.setIn(null);
