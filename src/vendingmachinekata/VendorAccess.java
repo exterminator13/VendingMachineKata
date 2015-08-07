@@ -42,7 +42,7 @@ public class VendorAccess implements Runnable{
     public void run() {
         Scanner reader = new Scanner(System.in);
         System.out.print("Press 1 to stock items\n" + "Press 2 to stock coins\n"
-        + "Press 3 to empty coin dispenser\n");
+        + "Press 3 to empty coin dispenser\n" + "Press 4 to add new item\n");
         while(true){              
             System.out.print("WELCOME VENDOR\n");   
             int input = Integer.parseInt(reader.nextLine()); 
@@ -75,6 +75,17 @@ public class VendorAccess implements Runnable{
                 }else{
                     System.out.print("ERROR\n");
                 }
+            }
+            if(input == 4){
+                System.out.print("ENTER ITEM NAME:\n");
+                String itemName = reader.nextLine();
+                System.out.print("PRICE:\n");
+                double price = Double.parseDouble(reader.nextLine());
+                Item newItem = new Item(itemName, price);
+                this.items.add(newItem);
+                System.out.print("NEW ITEM: " + newItem.getName().toUpperCase() + "\n"
+                + "PRICE: " + newItem.getMoney() + "\n" + "ITEM NUMBER: " + this.items.size()
+                + "\n");
             }
             if(input == 0){
                 break;

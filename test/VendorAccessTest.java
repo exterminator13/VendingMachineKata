@@ -20,7 +20,7 @@ public class VendorAccessTest {
     public VendorAccessTest() {
     }
     String instructions = "Press 1 to stock items\n" + "Press 2 to stock coins\n"
-    + "Press 3 to empty coin dispenser\n";
+    + "Press 3 to empty coin dispenser\n" + "Press 4 to add new item\n";
     String welcome = "WELCOME VENDOR\n";
     @Before
     public void setUp(){
@@ -68,5 +68,16 @@ public class VendorAccessTest {
         assertTrue(outStream.toString().equals(instructions + welcome
         + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "0 Quarters, 0 Dimes, 10 Nickels\n"
         + welcome + "COINS EMPTIED\n" + welcome));
+    }
+    @Test
+    public void newItemAddedToItemList(){
+        String input = "4\n" + "water\n" + "1.25\n" + "1\n" + "4\n" + "3\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendorAccess.run();
+        assertTrue(outStream.toString().equals(instructions + welcome + "ENTER ITEM NAME:\n"
+        + "PRICE:\n" + "NEW ITEM: WATER\n" + "PRICE: $1.25\n" + "ITEM NUMBER: 4\n" + welcome
+        + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" + "ITEM: WATER\n"
+        + "STOCK: 3\n" + welcome));
     }
 }
