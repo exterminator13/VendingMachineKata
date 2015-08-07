@@ -42,18 +42,35 @@ public class VendorAccess implements Runnable{
         + "Press 3 to empty coin dispenser\n" + "Press 4 to add new item\n");
         while(true){              
             System.out.print("WELCOME VENDOR\n");   
-            int input = Integer.parseInt(reader.nextLine()); 
+            int input = -1;
+            try{
+                input = Integer.parseInt(reader.nextLine()); 
+            }catch(Exception d){
+            }
             if(input == 1){
                 System.out.print("ITEM'S NUMBER TO BE STOCKED:\n");
                 //Adjust for 0 based index
-                int itemNumber = Integer.parseInt(reader.nextLine()) - 1;
+                int itemNumber = -1;
+                try{
+                    itemNumber = Integer.parseInt(reader.nextLine()) - 1;
+                }catch(Exception d){
+                }
                 if(itemNumber >= 0 && itemNumber < this.items.size()){
                     System.out.print("AMOUNT ADDED:\n");
-                    int amount = Integer.parseInt(reader.nextLine());
+                    int amount = -1;
+                    try{
+                        amount = Integer.parseInt(reader.nextLine());
+                    }catch(Exception d){
+                    }
+                    if(amount < 1){
+                    System.out.print("INVALID AMOUNT\n");
+                    }else{
+                    // Added back 1 because test file for vending machine written to match number with item
                     this.stockItem(itemNumber + 1, amount);
                     String itemName = this.items.get(itemNumber).getName().toUpperCase() + "\n";
                     int itemStockAmount = this.items.get(itemNumber).getStock();
                     System.out.print("ITEM: " + itemName + "STOCK: " +  itemStockAmount + "\n");
+                    }
                 }else{
                     System.out.print("INVALID ITEM NUMBER\n");
                 }
@@ -87,6 +104,9 @@ public class VendorAccess implements Runnable{
             if(input == 0){
                 break;
             }
+            if(input < 0 || input > 4){
+                System.out.print("INVALID SELECTION");
+            }   
         }
     }
 }

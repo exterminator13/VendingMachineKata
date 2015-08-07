@@ -80,4 +80,16 @@ public class VendorAccessTest {
         + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" + "ITEM: WATER\n"
         + "STOCK: 3\n" + welcome));
     }
+    @Test
+    public void invalidChoicesOnItemStockingDisplaysErrorsKeepsGoing(){
+        String input = "1\n" + "4\n" + "1\n" + "3\n" + "-2098\n" + "1\n" + "3\n" + "83\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendorAccess.run();
+        assertTrue(outStream.toString().equals(instructions + welcome 
+        + "ITEM'S NUMBER TO BE STOCKED:\n" + "INVALID ITEM NUMBER\n" + welcome
+        + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" + "INVALID AMOUNT\n"
+        + welcome + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" + "ITEM: CHIPS\n"
+        + "STOCK: 83\n" + welcome));
+    }
 }
