@@ -47,4 +47,16 @@ public class VendorAccessTest {
         + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" 
         + "ITEM: COLA\n" + "STOCK: 3\n" + welcome));
     }
+    @Test
+    public void vendorCanStockCoins(){
+        String input = "2\n" + "10\n" + "2\n" + "2\n" + "10\n" + "1\n" + "2\n" + "25\n" + "4\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendorAccess.run();
+        assertTrue(outStream.toString().equals(instructions + welcome
+        + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "0 Quarters, 2 Dimes, 0 Nickels\n"
+        + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "0 Quarters, 3 Dimes, 0 Nickels\n"
+        + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "4 Quarters, 3 Dimes, 0 Nickels\n"
+        + welcome));
+    }
 }

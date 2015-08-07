@@ -22,15 +22,20 @@ public class VendorAccess implements Runnable{
         }
         return false;
     }
-    public void stockCoins(int coinValue, int amount){
+    public String stockCoins(int coinValue, int amount){
         if(coinValue == 25){
             this.vendingMachine.coinDispenser.addQuarters(amount);
+                return this.vendingMachine.coinDispenser.getCoinAmount();
         }
         if(coinValue == 10){
             this.vendingMachine.coinDispenser.addDimes(amount);
+            return this.vendingMachine.coinDispenser.getCoinAmount();
         }
         if(coinValue == 5){
             this.vendingMachine.coinDispenser.addNickels(amount);
+            return this.vendingMachine.coinDispenser.getCoinAmount();
+        }else{
+            return "INVALID AMOUNT";
         }
     }
     @Override
@@ -55,6 +60,13 @@ public class VendorAccess implements Runnable{
                 }else{
                     System.out.print("INVALID ITEM NUMBER\n");
                 }
+            }
+            if(input == 2){
+                System.out.print("COIN VALUE:\n");
+                int coinValue = Integer.parseInt(reader.nextLine());
+                System.out.print("AMOUNT OF COINS:\n");
+                int coinAmount = Integer.parseInt(reader.nextLine());
+                System.out.print(stockCoins(coinValue, coinAmount) + "\n");
             }
             if(input == 0){
                 break;
