@@ -16,9 +16,9 @@ public class VendingMachine implements Runnable{
         this.coinDispenser = new CoinDispenser();
         this.vendingMachineTransaction = new VendingMachineTransaction(this.coinDispenser);
         this.items = new ArrayList();
-        this.cola = new Item(1.00);
-        this.candy = new Item(0.65);
-        this.chips = new Item(0.50);
+        this.cola = new Item("cola", 1.00);
+        this.candy = new Item("candy", 0.65);
+        this.chips = new Item("chips", 0.50);
         this.items.add(this.cola);
         this.items.add(this.candy);
         this.items.add(this.chips);

@@ -16,9 +16,8 @@ public class VendorAccess implements Runnable{
         return this.items.get(itemNumber);
     }
     public boolean stockItem(int itemNumber, int amount){
-        itemNumber = itemNumber - 1;
         if(this.items.size() > itemNumber && itemNumber >= 0){
-            itemSelector(itemNumber).setStock(amount);
+            itemSelector(itemNumber).addStock(amount);
             return true;
         }
         return false;
@@ -50,7 +49,9 @@ public class VendorAccess implements Runnable{
                     System.out.print("AMOUNT ADDED:\n");
                     int amount = Integer.parseInt(reader.nextLine());
                     this.stockItem(itemNumber, amount);
-                    System.out.print("SUCCESSFUL\n");
+                    String itemName = this.items.get(itemNumber).getName().toUpperCase() + "\n";
+                    int itemStockAmount = this.items.get(itemNumber).getStock();
+                    System.out.print("ITEM: " + itemName + "STOCK: " +  itemStockAmount + "\n");
                 }else{
                     System.out.print("INVALID ITEM NUMBER\n");
                 }

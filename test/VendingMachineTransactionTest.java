@@ -20,9 +20,9 @@ public class VendingMachineTransactionTest {
     String dimeDiameter = "0.705 in";
     String nickelWeight = "5.000 g";
     String nickelDiameter = "0.835 in";
-    Item candy = new Item(0.65);
-    Item cola = new Item(1.00);
-    Item chips = new Item(0.50);
+    Item candy = new Item("candy", 0.65);
+    Item cola = new Item("cola", 1.00);
+    Item chips = new Item("chips", 0.50);
     @Before
     public void setUp(){
         CoinDispenser coinDispenser = new CoinDispenser();

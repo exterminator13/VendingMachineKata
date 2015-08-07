@@ -45,6 +45,6 @@ public class VendorAccessTest {
         vendorAccess.run();
         assertTrue(outStream.toString().equals(instructions + welcome
         + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" 
-        + "SUCCESSFUL\n" + welcome));
+        + "ITEM: COLA\n" + "STOCK: 3\n" + welcome));
     }
 }
