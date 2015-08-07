@@ -24,7 +24,7 @@ public class VendingMachine implements Runnable{
         this.items.add(this.chips);
         this.vendorAccess = new VendorAccess(this);
     }
-    public List getListOfItems(){
+    public List<Item> getListOfItems(){
         return this.items;
     }
     public VendorAccess getVendorAccess(){
@@ -52,7 +52,7 @@ public class VendingMachine implements Runnable{
                     if(diameter.contains("in")){
                         boolean validCoin = this.vendingMachineTransaction.coinRecognition(input, diameter);
                         if(validCoin == false){
-                            System.out.print("Coin put into dispenser\n");
+                            System.out.print("Coin returned\n");
                         }
                     }
                 }else{

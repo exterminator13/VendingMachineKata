@@ -142,8 +142,8 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals(exact + "Coin put into dispenser\n"
-        + exact + "$0.25\n" + "Coin put into dispenser\n" + "$0.25\n"));
+        assertTrue(outStream.toString().equals(exact + "Coin returned\n"
+        + exact + "$0.25\n" + "Coin returned\n" + "$0.25\n"));
     }
     @After
     public void tearDown(){

@@ -1,7 +1,6 @@
 
 package vendingmachinekata;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,12 +11,10 @@ public class VendorAccess implements Runnable{
         this.vendingMachine = vendingMachine;
         this.items = this.vendingMachine.getListOfItems();
     }
-    public Item itemSelector(int itemNumber){
-        return this.items.get(itemNumber);
-    }
     public boolean stockItem(int itemNumber, int amount){
+        itemNumber = itemNumber - 1;
         if(this.items.size() > itemNumber && itemNumber >= 0){
-            itemSelector(itemNumber).addStock(amount);
+            this.vendingMachine.itemSelector(itemNumber).addStock(amount);
             return true;
         }
         return false;
@@ -53,7 +50,7 @@ public class VendorAccess implements Runnable{
                 if(itemNumber >= 0 && itemNumber < this.items.size()){
                     System.out.print("AMOUNT ADDED:\n");
                     int amount = Integer.parseInt(reader.nextLine());
-                    this.stockItem(itemNumber, amount);
+                    this.stockItem(itemNumber + 1, amount);
                     String itemName = this.items.get(itemNumber).getName().toUpperCase() + "\n";
                     int itemStockAmount = this.items.get(itemNumber).getStock();
                     System.out.print("ITEM: " + itemName + "STOCK: " +  itemStockAmount + "\n");
