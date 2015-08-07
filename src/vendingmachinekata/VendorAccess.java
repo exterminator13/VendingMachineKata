@@ -42,6 +42,19 @@ public class VendorAccess implements Runnable{
         while(true){              
             System.out.print("WELCOME VENDOR\n");   
             int input = Integer.parseInt(reader.nextLine()); 
+            if(input == 1){
+                System.out.print("ITEM'S NUMBER TO BE STOCKED:\n");
+                //Adjust for 0 based index
+                int itemNumber = Integer.parseInt(reader.nextLine()) - 1;
+                if(itemNumber >= 0 && itemNumber < this.items.size()){
+                    System.out.print("AMOUNT ADDED:\n");
+                    int amount = Integer.parseInt(reader.nextLine());
+                    this.stockItem(itemNumber, amount);
+                    System.out.print("SUCCESSFUL\n");
+                }else{
+                    System.out.print("INVALID ITEM NUMBER\n");
+                }
+            }
             if(input == 0){
                 break;
             }

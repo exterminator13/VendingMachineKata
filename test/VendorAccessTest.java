@@ -37,4 +37,14 @@ public class VendorAccessTest {
         vendorAccess.run();
         assertTrue(outStream.toString().equals(instructions + welcome));
     }
+    @Test
+    public void vendorCanAddStockToItems(){
+        String input = "1\n" + "1\n" + "3\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendorAccess.run();
+        assertTrue(outStream.toString().equals(instructions + welcome
+        + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" 
+        + "SUCCESSFUL\n" + welcome));
+    }
 }
