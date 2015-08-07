@@ -77,10 +77,27 @@ public class VendorAccess implements Runnable{
             }
             if(input == 2){
                 System.out.print("COIN VALUE:\n");
-                int coinValue = Integer.parseInt(reader.nextLine());
-                System.out.print("AMOUNT OF COINS:\n");
-                int coinAmount = Integer.parseInt(reader.nextLine());
-                System.out.print(stockCoins(coinValue, coinAmount) + "\n");
+                int coinValue = -1;
+                try{
+                    coinValue = Integer.parseInt(reader.nextLine());
+                }catch(Exception d){
+                }
+                if(coinValue == 5 || coinValue == 10 || coinValue == 25){
+                    System.out.print("AMOUNT OF COINS:\n");
+                    int coinAmount = -1;
+                    try{
+                        coinAmount = Integer.parseInt(reader.nextLine());
+                    }catch(Exception d){
+                    }
+                    if(coinAmount < 1){
+                        System.out.print("INVALID AMOUNT\n");
+                    }else{
+                    System.out.print(stockCoins(coinValue, coinAmount) + "\n");
+                    }
+                }else{
+                    System.out.print("INVALID VALUE\n");
+                }
+                
             }
             if(input == 3){
                 this.vendingMachine.coinDispenser.setCoins(0, 0, 0);

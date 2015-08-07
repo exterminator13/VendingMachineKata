@@ -101,4 +101,14 @@ public class VendorAccessTest {
         assertTrue(outStream.toString().equals(instructions + welcome + "INVALID SELECTION\n"
         + welcome + "INVALID SELECTION\n" + welcome));
     }
+    @Test
+    public void invalidSelectionAtCoinStockDisplaysErrorMessageKeepsGoing(){
+        String input = "2\n" + "589\n" + "2\n" + "10\n" + "-129\n" + "2\n" + "asldkf\n" + "0\n";
+        in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        vendorAccess.run();
+        assertTrue(outStream.toString().equals(instructions + welcome + "COIN VALUE:\n"
+        + "INVALID VALUE\n" + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n"
+        + "INVALID AMOUNT\n" + welcome + "COIN VALUE:\n" + "INVALID VALUE\n" + welcome));
+    }
 }
