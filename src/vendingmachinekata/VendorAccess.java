@@ -39,7 +39,7 @@ public class VendorAccess implements Runnable{
     public void run() {
         Scanner reader = new Scanner(System.in);
         System.out.print("Press 1 to stock items\n" + "Press 2 to stock coins\n"
-        + "Press 3 to empty coin dispenser\n" + "Press 4 to add new item\n");
+        + "Press 3 to empty coin dispenser\n" + "Press 4 to add new item\n" + "Press 0 to exit\n");
         while(true){              
             System.out.print("WELCOME VENDOR\n");   
             int input = -1;

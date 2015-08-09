@@ -17,7 +17,7 @@ public class VendorAccessTest {
     public VendorAccessTest() {
     }
     String instructions = "Press 1 to stock items\n" + "Press 2 to stock coins\n"
-    + "Press 3 to empty coin dispenser\n" + "Press 4 to add new item\n";
+    + "Press 3 to empty coin dispenser\n" + "Press 4 to add new item\n" + "Press 0 to exit\n";
     String welcome = "WELCOME VENDOR\n";
     @Before
     public void setUp(){
@@ -43,6 +43,7 @@ public class VendorAccessTest {
         assertTrue(outStream.toString().equals(instructions + welcome
         + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" 
         + "ITEM: COLA\n" + "STOCK: 3\n" + welcome));
+        assertEquals(3, vendingMachine.getListOfItems().get(0).getStock());
     }
     @Test
     public void vendorCanStockCoins(){
@@ -55,6 +56,7 @@ public class VendorAccessTest {
         + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "0 Quarters, 3 Dimes, 0 Nickels\n"
         + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "4 Quarters, 3 Dimes, 0 Nickels\n"
         + welcome));
+        assertEquals("4 Quarters, 3 Dimes, 0 Nickels", vendingMachine.getCoinDispenser().getCoinAmount());
     }
     @Test
     public void vendorCanEmptyCoinDispenser(){
@@ -65,6 +67,7 @@ public class VendorAccessTest {
         assertTrue(outStream.toString().equals(instructions + welcome
         + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "0 Quarters, 0 Dimes, 10 Nickels\n"
         + welcome + "COINS EMPTIED\n" + welcome));
+        assertEquals("0 Quarters, 0 Dimes, 0 Nickels", vendingMachine.getCoinDispenser().getCoinAmount());
     }
     @Test
     public void newItemAddedToItemList(){
@@ -76,6 +79,7 @@ public class VendorAccessTest {
         + "PRICE:\n" + "NEW ITEM: WATER\n" + "PRICE: $1.25\n" + "ITEM NUMBER: 4\n" + welcome
         + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" + "ITEM: WATER\n"
         + "STOCK: 3\n" + welcome));
+        assertEquals(3, vendingMachine.getListOfItems().get(3).getStock());
     }
     @Test
     public void invalidChoicesOnItemStockingDisplaysErrorsKeepsGoing(){

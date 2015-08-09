@@ -33,6 +33,9 @@ public class VendingMachine implements Runnable{
     public Item itemSelector(int itemNumber){
         return this.items.get(itemNumber);
     }
+    public CoinDispenser getCoinDispenser(){
+        return this.coinDispenser;
+    }
     @Override
     public void run(){
         int i = 1;
