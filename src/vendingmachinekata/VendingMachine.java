@@ -35,6 +35,11 @@ public class VendingMachine implements Runnable{
     }
     @Override
     public void run(){
+        int i = 1;
+        for(Item item : this.items){
+            System.out.print("Press " + i + " for " + item.getName().toUpperCase() + "\n");
+            i++;
+        }
         Scanner reader = new Scanner(System.in);
         this.vendingMachineTransaction.startNewTransaction();
         while(true){
@@ -54,8 +59,8 @@ public class VendingMachine implements Runnable{
                         validCoin = this.vendingMachineTransaction.coinRecognition(input, diameter);    
                     }
                     if(validCoin == false){
-                            System.out.print("Coin returned\n");
-                        }
+                        System.out.print("Coin returned\n");
+                    }
                 }else{
                     //Assigned default value to prevent exceptions
                     int item = -2;

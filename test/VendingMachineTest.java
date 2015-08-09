@@ -16,6 +16,7 @@ public class VendingMachineTest {
     private final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     public VendingMachineTest() {
     }
+    String instructions = "Press 1 for COLA\n" + "Press 2 for CANDY\n" + "Press 3 for CHIPS\n";
     String quarterWeight = "5.670 g\n";
     String quarterDiameter = "0.955 in\n";
     String dimeWeight = "2.268 g\n";
@@ -38,7 +39,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(selection.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().contains("EXACT CHANGE ONLY\n"));
+        assertTrue(outStream.toString().contains(instructions + "EXACT CHANGE ONLY\n"));
     }
     @Test
     public void inputNumberForItemWithNoStockReturnsSoldOut(){ 
@@ -46,7 +47,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(selection.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals("EXACT CHANGE ONLY\n" + "SOLD OUT\n" +
+        assertTrue(outStream.toString().equals(instructions + "EXACT CHANGE ONLY\n" + "SOLD OUT\n" +
         "EXACT CHANGE ONLY\n" + "SOLD OUT\n" + "EXACT CHANGE ONLY\n" + "SOLD OUT\n" + 
         "EXACT CHANGE ONLY\n"));
     }
@@ -59,7 +60,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(selection.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals("EXACT CHANGE ONLY\n" + "$1.00\n"
+        assertTrue(outStream.toString().equals(instructions + "EXACT CHANGE ONLY\n" + "$1.00\n"
         + "EXACT CHANGE ONLY\n" + "$0.65\n" + "EXACT CHANGE ONLY\n" + "$0.50\n" + "EXACT CHANGE ONLY\n"));
     }
     @Test
@@ -75,7 +76,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals("EXACT CHANGE ONLY\n" + "$0.25\n" + "$0.50\n"
+        assertTrue(outStream.toString().equals(instructions + "EXACT CHANGE ONLY\n" + "$0.25\n" + "$0.50\n"
         + "$0.75\n" + "$1.00\n" + "THANK YOU\n"
         + "INSERT COINS\n" + "$0.25\n" + "$0.50\n" + "$0.60\n" + "$0.65\n"
         + "THANK YOU\n" + "INSERT COINS\n" + "$0.25\n" + "$0.50\n" + "THANK YOU\n" + "INSERT COINS\n"));
@@ -90,7 +91,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals(exact + "$0.25\n"+ "PRICE $1.00\n" + "$0.25\n" + "$0.35\n"
+        assertTrue(outStream.toString().equals(instructions + exact + "$0.25\n"+ "PRICE $1.00\n" + "$0.25\n" + "$0.35\n"
         + "PRICE $0.65\n" + "$0.35\n" + "$0.40\n" + "PRICE $0.50\n" + "$0.40\n"));
     }
     @Test
@@ -105,7 +106,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals(insert + "$0.25\n" + "$0.35\n"
+        assertTrue(outStream.toString().equals(instructions + insert + "$0.25\n" + "$0.35\n"
         + "$0.45\n" + "$0.55\n" + "Can't make change\n" + "$0.55\n"
         + "$0.60\n" + "THANK YOU\n" + "0 Quarters, 1 Dime, 0 Nickels returned\n" + insert));
     }
@@ -118,7 +119,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals(insert + "$0.25\n" + "$0.35\n" 
+        assertTrue(outStream.toString().equals(instructions + insert + "$0.25\n" + "$0.35\n" 
         + "$0.40\n" + "1 Quarter, 1 Dime, 1 Nickel\n" + insert + "$1.00\n" + insert));
     }
     @Test
@@ -131,7 +132,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals(insert + "$0.25\n" + "$0.50\n"
+        assertTrue(outStream.toString().equals(instructions + insert + "$0.25\n" + "$0.50\n"
         + "$0.75\n" + "$1.00\n" + thank + insert + sold + insert 
         + "0 Quarters, 0 Dimes, 0 Nickels\n" + insert));
     }
@@ -142,7 +143,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals(exact + "Coin returned\n"
+        assertTrue(outStream.toString().equals(instructions + exact + "Coin returned\n"
         + exact + "$0.25\n" + "Coin returned\n" + "$0.25\n"));
     }
     @Test
@@ -151,7 +152,7 @@ public class VendingMachineTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendingMachine.run();
-        assertTrue(outStream.toString().equals(exact + "INVALID SELECTION\n"
+        assertTrue(outStream.toString().equals(instructions + exact + "INVALID SELECTION\n"
         + exact + "INVALID SELECTION\n" + exact));
     }
     @After
