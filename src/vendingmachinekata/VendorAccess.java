@@ -21,15 +21,15 @@ public class VendorAccess implements Runnable{
     }
     public String stockCoins(int coinValue, int amount){
         if(coinValue == 25){
-            this.vendingMachine.coinDispenser.addQuarters(amount);
+            this.vendingMachine.coinDispenser.addCoins(25, amount);
                 return this.vendingMachine.coinDispenser.getCoinAmount();
         }
         if(coinValue == 10){
-            this.vendingMachine.coinDispenser.addDimes(amount);
+            this.vendingMachine.coinDispenser.addCoins(10, amount);
             return this.vendingMachine.coinDispenser.getCoinAmount();
         }
         if(coinValue == 5){
-            this.vendingMachine.coinDispenser.addNickels(amount);
+            this.vendingMachine.coinDispenser.addCoins(5, amount);
             return this.vendingMachine.coinDispenser.getCoinAmount();
         }else{
             return "INVALID AMOUNT";

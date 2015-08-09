@@ -33,7 +33,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void displaysInsertCoinWhileNotInTransaction(){
-        test.getCoinDispenser().addDimes(1);
+        test.getCoinDispenser().addCoins(10, 1);
         assertEquals("INSERT COINS", test.display());
     }
     @Test
@@ -77,7 +77,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void havingExactChangeReturnsThankYouForColaAndSubtractsFromTotal(){
-        test.getCoinDispenser().addNickels(3);
+        test.getCoinDispenser().addCoins(5, 3);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
@@ -89,7 +89,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void havingExactChangeReturnsThankYouForChipsAndSubtractsFromTotal(){
-        test.getCoinDispenser().addDimes(10);
+        test.getCoinDispenser().addCoins(10, 10);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(nickelWeight, nickelDiameter);
@@ -129,7 +129,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void extraMoneyReturedAfterColaTransaction(){
-        test.getCoinDispenser().addNickels(5);
+        test.getCoinDispenser().addCoins(5, 5);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
@@ -141,7 +141,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void extraMoneyReturnedAfterCandyTransaction(){
-        test.getCoinDispenser().addDimes(3);
+        test.getCoinDispenser().addCoins(10, 3);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
@@ -149,7 +149,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void extraMoneyReturnedAfterChipsTransaction(){
-        test.getCoinDispenser().addNickels(2);
+        test.getCoinDispenser().addCoins(5, 2);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);

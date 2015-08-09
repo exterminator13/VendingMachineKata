@@ -13,7 +13,7 @@ public class VendingMachineTransaction {
     }
     public void startNewTransaction(){
         this.transactionDispenser = new CoinDispenser();
-        this.transactionDispenser.setCoins(coinDispenser.getQuarters(), coinDispenser.getDimes(), coinDispenser.getNickels());
+        this.transactionDispenser.setCoins(coinDispenser.getCoins(25), coinDispenser.getCoins(10), coinDispenser.getCoins(5));
     }
     public double getCurrentAmount(){
         return this.currentAmount.getAmount();
@@ -34,17 +34,17 @@ public class VendingMachineTransaction {
     public boolean coinRecognition(String weight, String diameter){
         if(weight.equals("5.670 g") && diameter.equals("0.955 in")){
             this.currentAmount.addMoney(.25);
-            this.coinDispenser.addQuarters(1);
+            this.coinDispenser.addCoins(25, 1);
             return true;
         }
         if(weight.equals("2.268 g") && diameter.equals("0.705 in")){
             this.currentAmount.addMoney(.10);
-            this.coinDispenser.addDimes(1);
+            this.coinDispenser.addCoins(10, 1);
             return true;
         }
         if(weight.equals("5.000 g") && diameter.equals("0.835 in")){
             this.currentAmount.addMoney(.05);
-            this.coinDispenser.addNickels(1);
+            this.coinDispenser.addCoins(5, 1);
             return true;
         }
         return false;
@@ -87,7 +87,7 @@ public class VendingMachineTransaction {
     }
     public String returnCoins(){
         String coinsReturned = this.coinDispenser.getDifference(this.transactionDispenser);
-        this.coinDispenser.setCoins(this.transactionDispenser.getQuarters(), this.transactionDispenser.getDimes(), this.transactionDispenser.getNickels());
+        this.coinDispenser.setCoins(this.transactionDispenser.getCoins(25), this.transactionDispenser.getCoins(10), this.transactionDispenser.getCoins(5));
         this.currentAmount.setAmount(0.00);
         return coinsReturned;
     }
