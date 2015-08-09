@@ -13,7 +13,7 @@ public class VendingMachineTransaction {
     }
     public void startNewTransaction(){
         this.transactionDispenser = new CoinDispenser();
-        this.transactionDispenser.setCoins(coinDispenser.getQuarters(), coinDispenser.getDimes(), coinDispenser.getNickels());
+        this.transactionDispenser.setCoins(coinDispenser.getCoins(25), coinDispenser.getCoins(10), coinDispenser.getCoins(5));
     }
     public double getCurrentAmount(){
         return this.currentAmount.getAmount();
@@ -87,7 +87,7 @@ public class VendingMachineTransaction {
     }
     public String returnCoins(){
         String coinsReturned = this.coinDispenser.getDifference(this.transactionDispenser);
-        this.coinDispenser.setCoins(this.transactionDispenser.getQuarters(), this.transactionDispenser.getDimes(), this.transactionDispenser.getNickels());
+        this.coinDispenser.setCoins(this.transactionDispenser.getCoins(25), this.transactionDispenser.getCoins(10), this.transactionDispenser.getCoins(5));
         this.currentAmount.setAmount(0.00);
         return coinsReturned;
     }

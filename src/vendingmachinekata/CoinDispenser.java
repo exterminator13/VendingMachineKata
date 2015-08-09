@@ -29,14 +29,18 @@ public class CoinDispenser {
         this.nickels = this.nickels + amount;
         this.amountInMachine.addMoney(.05 * amount);
     } 
-    public int getQuarters(){
-        return this.quarters;
-    }
-    public int getDimes(){
-        return this.dimes;
-    }
-    public int getNickels(){
-        return this.nickels;
+    public int getCoins(int value){
+        if(value == 25){
+            return this.quarters;
+        }
+        else if(value == 10){
+            return this.dimes;
+        }
+        else if(value == 5){
+            return this.nickels;
+        }else{
+            return 0;
+        }
     }
     public void setCoins(int quarterAmount, int dimeAmount, int nickelAmount){
         this.quarters = quarterAmount;
@@ -44,7 +48,7 @@ public class CoinDispenser {
         this.nickels = nickelAmount;
     }
     public String getDifference(CoinDispenser coinDispenser){
-        return stringMaker(this.getQuarters() - coinDispenser.getQuarters(), this.getDimes() - coinDispenser.getDimes(), this.getNickels() - coinDispenser.getNickels());
+        return stringMaker(this.getCoins(25) - coinDispenser.getCoins(25), this.getCoins(10) - coinDispenser.getCoins(10), this.getCoins(5) - coinDispenser.getCoins(5));
     }
     public String stringMaker(int quarterAmount, int dimeAmount, int nickelAmount){
         String quarter = " Quarters, ";

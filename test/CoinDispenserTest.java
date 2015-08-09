@@ -92,7 +92,7 @@ public class CoinDispenserTest {
         test2.addQuarters(2);
         test2.addDimes(5);
         test2.addNickels(3);
-        test2.setCoins(test.getQuarters(), test.getDimes(), test.getNickels());
+        test2.setCoins(test.getCoins(25), test.getCoins(10), test.getCoins(5));
         assertEquals("3 Quarters, 4 Dimes, 1 Nickel", test2.getCoinAmount());
     }
 }
