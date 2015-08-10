@@ -17,6 +17,7 @@ public class Money {
     }
     @Override
     public String toString(){
+        //Makes sure that the decimal format 0.00 is stuck to when printed
         DecimalFormat decimalFormat = new DecimalFormat("####0.00");
         return "$" + decimalFormat.format(money);
         

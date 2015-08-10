@@ -25,7 +25,7 @@ public class VendingMachineTransaction {
         if(this.coinDispenser.getAmountInMachine().getAmount() == 0.00){
             return "EXACT CHANGE ONLY";
         }
-        if(this.currentAmount.toString().equals("$0.00")){
+        if(this.currentAmount.getAmount() == 0.00){
             return "INSERT COINS";
         }else{
             return this.currentAmount.toString();

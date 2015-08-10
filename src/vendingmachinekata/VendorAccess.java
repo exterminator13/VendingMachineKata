@@ -22,7 +22,7 @@ public class VendorAccess implements Runnable{
     public String stockCoins(int coinValue, int amount){
         if(coinValue == 25){
             this.vendingMachine.coinDispenser.addCoins(25, amount);
-                return this.vendingMachine.coinDispenser.getCoinAmount();
+            return this.vendingMachine.coinDispenser.getCoinAmount();
         }
         if(coinValue == 10){
             this.vendingMachine.coinDispenser.addCoins(10, amount);
@@ -110,6 +110,7 @@ public class VendorAccess implements Runnable{
                 System.out.print("ENTER ITEM NAME:\n");
                 String itemName = reader.nextLine();
                 System.out.print("PRICE:\n");
+                //Preventes invalid pricing
                 double price = -1.00;
                 try{
                     price = Double.parseDouble(reader.nextLine());

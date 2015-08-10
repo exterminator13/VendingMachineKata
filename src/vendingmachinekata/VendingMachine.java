@@ -38,11 +38,13 @@ public class VendingMachine implements Runnable{
     }
     @Override
     public void run(){
+        //Uses new line statements for testing purposes
         int i = 1;
         for(Item item : this.items){
             System.out.print("Press " + i + " for " + item.getName().toUpperCase() + "\n");
             i++;
         }
+        System.out.print("Press 0 to exit\n");
         Scanner reader = new Scanner(System.in);
         this.vendingMachineTransaction.startNewTransaction();
         while(true){

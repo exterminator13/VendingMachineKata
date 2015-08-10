@@ -16,7 +16,7 @@ public class VendingMachineTest {
     private final ByteArrayOutputStream outStream = new ByteArrayOutputStream();
     public VendingMachineTest() {
     }
-    String instructions = "Press 1 for COLA\n" + "Press 2 for CANDY\n" + "Press 3 for CHIPS\n";
+    String instructions = "Press 1 for COLA\n" + "Press 2 for CANDY\n" + "Press 3 for CHIPS\n" + "Press 0 to exit\n";
     String quarterWeight = "5.670 g\n";
     String quarterDiameter = "0.955 in\n";
     String dimeWeight = "2.268 g\n";

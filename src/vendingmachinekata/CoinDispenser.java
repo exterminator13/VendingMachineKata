@@ -70,6 +70,7 @@ public class CoinDispenser {
     public String getCoinAmount(){
         return stringMaker(this.quarters, this.dimes, this.nickels);
     }
+    //rounds the double to proper .00 format
     public double round(double number){
         BigDecimal bigDecimal = new BigDecimal(number);
         bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
