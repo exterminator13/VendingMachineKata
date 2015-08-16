@@ -65,7 +65,10 @@ public class VendingMachine implements Runnable{
                 if(m.matches()){
                     String diameter = reader.nextLine();
                     boolean validCoin = false;
-                    if(diameter.contains("in")){
+                    String inchPattern = "(\\d)(.)(\\d{3})( )(in)";
+                    Pattern diameterMatch = Pattern.compile(inchPattern);
+                    Matcher matcher = diameterMatch.matcher(diameter);
+                    if(matcher.matches()){
                         validCoin = this.vendingMachineTransaction.coinRecognition(input, diameter);    
                     }
                     if(validCoin == false){
