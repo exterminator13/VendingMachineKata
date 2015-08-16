@@ -3,6 +3,8 @@ package vendingmachinekata;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class VendingMachine implements Runnable{
     CoinDispenser coinDispenser;
@@ -47,6 +49,8 @@ public class VendingMachine implements Runnable{
         System.out.print("Press 0 to exit\n");
         Scanner reader = new Scanner(System.in);
         this.vendingMachineTransaction.startNewTransaction();
+        String pattern = "(\\d)(.)(\\d{3})( )(g)";
+        Pattern match = Pattern.compile(pattern);
         while(true){
             System.out.print(this.vendingMachineTransaction.display()+"\n");
             String input = reader.nextLine();
@@ -57,7 +61,8 @@ public class VendingMachine implements Runnable{
                 vendorAccess.run();
                 System.out.print("EXITING\n");
             }else{
-                if(input.contains("g")){
+                Matcher m = match.matcher(input);
+                if(m.matches()){
                     String diameter = reader.nextLine();
                     boolean validCoin = false;
                     if(diameter.contains("in")){
