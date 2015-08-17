@@ -7,9 +7,15 @@ import java.util.Scanner;
 public class VendorAccess implements Runnable{
     VendingMachine vendingMachine;
     List<Item> items;
+    int quarterValue;
+    int dimeValue;
+    int nickelValue;
     public VendorAccess(VendingMachine vendingMachine){
         this.vendingMachine = vendingMachine;
         this.items = this.vendingMachine.getListOfItems();
+        this.quarterValue = 25;
+        this.dimeValue = 10;
+        this.nickelValue = 5;
     }
     public boolean stockItem(int itemNumber, int amount){
         itemNumber = itemNumber - 1;
@@ -20,16 +26,16 @@ public class VendorAccess implements Runnable{
         return false;
     }
     public String stockCoins(int coinValue, int amount){
-        if(coinValue == 25){
-            this.vendingMachine.coinDispenser.addCoins(25, amount);
+        if(coinValue == this.quarterValue){
+            this.vendingMachine.coinDispenser.addCoins(this.quarterValue, amount);
             return this.vendingMachine.coinDispenser.getCoinAmount();
         }
-        if(coinValue == 10){
-            this.vendingMachine.coinDispenser.addCoins(10, amount);
+        if(coinValue == this.dimeValue){
+            this.vendingMachine.coinDispenser.addCoins(this.dimeValue, amount);
             return this.vendingMachine.coinDispenser.getCoinAmount();
         }
-        if(coinValue == 5){
-            this.vendingMachine.coinDispenser.addCoins(5, amount);
+        if(coinValue == this.nickelValue){
+            this.vendingMachine.coinDispenser.addCoins(this.nickelValue, amount);
             return this.vendingMachine.coinDispenser.getCoinAmount();
         }else{
             return "INVALID AMOUNT";
@@ -40,6 +46,11 @@ public class VendorAccess implements Runnable{
         Scanner reader = new Scanner(System.in);
         System.out.print("Press 1 to stock items\n" + "Press 2 to stock coins\n"
         + "Press 3 to empty coin dispenser\n" + "Press 4 to add new item\n" + "Press 0 to exit\n");
+        int stockItems = 1;
+        int stockCoins = 2;
+        int emptyDispenser = 3;
+        int addNewItem = 4;
+        int exit = 0;
         while(true){              
             System.out.print("WELCOME VENDOR\n");   
             int input = -1;
@@ -47,7 +58,7 @@ public class VendorAccess implements Runnable{
                 input = Integer.parseInt(reader.nextLine()); 
             }catch(Exception d){
             }
-            if(input == 1){
+            if(input == stockItems){
                 System.out.print("ITEM'S NUMBER TO BE STOCKED:\n");
                 //Adjust for 0 based index
                 int itemNumber = -1;
@@ -55,14 +66,14 @@ public class VendorAccess implements Runnable{
                     itemNumber = Integer.parseInt(reader.nextLine()) - 1;
                 }catch(Exception d){
                 }
-                if(itemNumber >= 0 && itemNumber < this.items.size()){
+                if(itemNumber >= exit && itemNumber < this.items.size()){
                     System.out.print("AMOUNT ADDED:\n");
                     int amount = -1;
                     try{
                         amount = Integer.parseInt(reader.nextLine());
                     }catch(Exception d){
                     }
-                    if(amount < 1){
+                    if(amount < stockItems){
                     System.out.print("INVALID AMOUNT\n");
                     }else{
                     // Added back 1 because test file for vending machine written to match number with item
@@ -75,21 +86,22 @@ public class VendorAccess implements Runnable{
                     System.out.print("INVALID ITEM NUMBER\n");
                 }
             }
-            if(input == 2){
+            if(input == stockCoins){
                 System.out.print("COIN VALUE:\n");
                 int coinValue = -1;
                 try{
                     coinValue = Integer.parseInt(reader.nextLine());
                 }catch(Exception d){
                 }
-                if(coinValue == 5 || coinValue == 10 || coinValue == 25){
+                if(coinValue == this.nickelValue || coinValue == this.dimeValue || coinValue == this.quarterValue){
                     System.out.print("AMOUNT OF COINS:\n");
                     int coinAmount = -1;
                     try{
                         coinAmount = Integer.parseInt(reader.nextLine());
                     }catch(Exception d){
                     }
-                    if(coinAmount < 1){
+                    int minimumCoinAmount = 1;
+                    if(coinAmount < minimumCoinAmount){
                         System.out.print("INVALID AMOUNT\n");
                     }else{
                     System.out.print(stockCoins(coinValue, coinAmount) + "\n");
@@ -98,7 +110,7 @@ public class VendorAccess implements Runnable{
                     System.out.print("INVALID VALUE\n");
                 }               
             }
-            if(input == 3){
+            if(input == emptyDispenser){
                 this.vendingMachine.coinDispenser.setCoins(0, 0, 0);
                 if("0 Quarters, 0 Dimes, 0 Nickels".equals(this.vendingMachine.coinDispenser.getCoinAmount())){
                     System.out.print("COINS EMPTIED\n");
@@ -106,7 +118,7 @@ public class VendorAccess implements Runnable{
                     System.out.print("ERROR\n");
                 }
             }
-            if(input == 4){
+            if(input == addNewItem){
                 System.out.print("ENTER ITEM NAME:\n");
                 String itemName = reader.nextLine();
                 System.out.print("PRICE:\n");
@@ -126,10 +138,10 @@ public class VendorAccess implements Runnable{
                     System.out.print("INVALID PRICE\n");
                 }
             }
-            if(input == 0){
+            if(input == exit){
                 break;
             }
-            if(input < 0 || input > 4){
+            if(input < exit || input > addNewItem){
                 System.out.print("INVALID SELECTION\n");
             }   
         }

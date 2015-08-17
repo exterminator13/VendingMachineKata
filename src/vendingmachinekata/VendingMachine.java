@@ -49,7 +49,7 @@ public class VendingMachine implements Runnable{
         System.out.print("Press 0 to exit\n");
         Scanner reader = new Scanner(System.in);
         this.vendingMachineTransaction.startNewTransaction();
-        String pattern = "(\\d)(.)(\\d{3})( )(g)";
+        String pattern = "(\\d)(.)(\\d{3})(\\s)(g)";
         Pattern match = Pattern.compile(pattern);
         while(true){
             System.out.print(this.vendingMachineTransaction.display()+"\n");
@@ -65,7 +65,7 @@ public class VendingMachine implements Runnable{
                 if(m.matches()){
                     String diameter = reader.nextLine();
                     boolean validCoin = false;
-                    String inchPattern = "(\\d)(.)(\\d{3})( )(in)";
+                    String inchPattern = "(\\d)(.)(\\d{3})(\\s)(in)";
                     Pattern diameterMatch = Pattern.compile(inchPattern);
                     Matcher matcher = diameterMatch.matcher(diameter);
                     if(matcher.matches()){
