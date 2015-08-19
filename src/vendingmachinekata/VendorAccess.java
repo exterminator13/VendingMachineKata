@@ -7,15 +7,9 @@ import java.util.Scanner;
 public class VendorAccess implements Runnable{
     VendingMachine vendingMachine;
     List<Item> items;
-    int quarterValue;
-    int dimeValue;
-    int nickelValue;
     public VendorAccess(VendingMachine vendingMachine){
         this.vendingMachine = vendingMachine;
         this.items = this.vendingMachine.getListOfItems();
-        this.quarterValue = 25;
-        this.dimeValue = 10;
-        this.nickelValue = 5;
     }
     public boolean stockItem(int itemNumber, int amount){
         itemNumber = itemNumber - 1;
@@ -25,17 +19,17 @@ public class VendorAccess implements Runnable{
         }
         return false;
     }
-    public String stockCoins(int coinValue, int amount){
-        if(coinValue == this.quarterValue){
-            this.vendingMachine.coinDispenser.addCoins(this.quarterValue, amount);
+    public String stockCoins(double coinValue, int amount){
+        if(coinValue == CoinValues.QUARTER_VALUE){
+            this.vendingMachine.coinDispenser.addCoins(CoinValues.QUARTER_VALUE, amount);
             return this.vendingMachine.coinDispenser.getCoinAmount();
         }
-        if(coinValue == this.dimeValue){
-            this.vendingMachine.coinDispenser.addCoins(this.dimeValue, amount);
+        if(coinValue == CoinValues.DIME_VALUE){
+            this.vendingMachine.coinDispenser.addCoins(CoinValues.DIME_VALUE, amount);
             return this.vendingMachine.coinDispenser.getCoinAmount();
         }
-        if(coinValue == this.nickelValue){
-            this.vendingMachine.coinDispenser.addCoins(this.nickelValue, amount);
+        if(coinValue == CoinValues.NICKEL_VALUE){
+            this.vendingMachine.coinDispenser.addCoins(CoinValues.NICKEL_VALUE, amount);
             return this.vendingMachine.coinDispenser.getCoinAmount();
         }else{
             return "INVALID AMOUNT";
@@ -88,12 +82,15 @@ public class VendorAccess implements Runnable{
             }
             if(input == stockCoins){
                 System.out.print("COIN VALUE:\n");
-                int coinValue = -1;
+                double coinValue = -1.00;
                 try{
-                    coinValue = Integer.parseInt(reader.nextLine());
+                    coinValue = Double.parseDouble("." + reader.nextLine());
                 }catch(Exception d){
                 }
-                if(coinValue == this.nickelValue || coinValue == this.dimeValue || coinValue == this.quarterValue){
+                int quarterValue = 25;
+                int dimeValue = 10;
+                int nickelValue = 5;
+                if(coinValue == CoinValues.QUARTER_VALUE || coinValue == CoinValues.DIME_VALUE || coinValue == CoinValues.NICKEL_VALUE){
                     System.out.print("AMOUNT OF COINS:\n");
                     int coinAmount = -1;
                     try{

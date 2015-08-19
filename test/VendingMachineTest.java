@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import vendingmachinekata.CoinValues;
 import vendingmachinekata.VendingMachine;
 import vendingmachinekata.VendorAccess;
 public class VendingMachineTest {
@@ -99,7 +100,7 @@ public class VendingMachineTest {
         vendorAccess.stockItem(2, 4);
         vendorAccess.stockItem(1, 3);
         vendorAccess.stockItem(3, 1);
-        vendorAccess.stockCoins(10, 2);
+        vendorAccess.stockCoins(CoinValues.DIME_VALUE, 2);
         String input = quarterWeight + quarterDiameter + dimeWeight + dimeDiameter
         + dimeWeight + dimeDiameter + dimeWeight + dimeDiameter 
         + "3\n" + nickelWeight + nickelDiameter + "3\n" + "0\n";
@@ -113,7 +114,7 @@ public class VendingMachineTest {
     @Test
     public void coinsAreReturnedToCustomerMidTransaction(){
         vendorAccess.stockItem(1, 3);
-        vendorAccess.stockCoins(10, 2);
+        vendorAccess.stockCoins(CoinValues.DIME_VALUE, 2);
         String input = quarterWeight + quarterDiameter + dimeWeight + dimeDiameter 
         + nickelWeight + nickelDiameter + "return\n" + "1\n" + "0\n";
         in = new ByteArrayInputStream(input.getBytes());
@@ -125,7 +126,7 @@ public class VendingMachineTest {
     @Test
     public void itemIsRemovedFromStockAfterSuccessfulTransaction(){
         vendorAccess.stockItem(1, 1);
-        vendorAccess.stockCoins(10, 4);
+        vendorAccess.stockCoins(CoinValues.DIME_VALUE, 4);
         String input = quarterWeight + quarterDiameter + quarterWeight
         + quarterDiameter + quarterWeight + quarterDiameter + quarterWeight + quarterDiameter
         + "1\n" + "1\n" + "return\n" + "0\n";

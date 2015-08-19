@@ -17,28 +17,28 @@ public class CoinDispenser {
     public Money getAmountInMachine(){
         return this.amountInMachine;
     }
-    public void addCoins(int value, int amount){
-        if(value == 25){
+    public void addCoins(double value, int amount){
+        if(value == CoinValues.QUARTER_VALUE){
             this.quarters = this.quarters + amount;
-            this.amountInMachine.addMoney(.25 * amount);
+            this.amountInMachine.addMoney(CoinValues.QUARTER_VALUE * amount);
         }
-        if(value == 10){
+        if(value == CoinValues.DIME_VALUE){
             this.dimes = this.dimes + amount;
-            this.amountInMachine.addMoney(.10 * amount);
+            this.amountInMachine.addMoney(CoinValues.DIME_VALUE * amount);
         }
-        if(value == 5){
+        if(value == CoinValues.NICKEL_VALUE){
             this.nickels = this.nickels + amount;
-            this.amountInMachine.addMoney(.05 * amount);
+            this.amountInMachine.addMoney(CoinValues.NICKEL_VALUE * amount);
         }
     }
-    public int getCoins(int value){
-        if(value == 25){
+    public int getCoins(double value){
+        if(value == CoinValues.QUARTER_VALUE){
             return this.quarters;
         }
-        else if(value == 10){
+        else if(value == CoinValues.DIME_VALUE){
             return this.dimes;
         }
-        else if(value == 5){
+        else if(value == CoinValues.NICKEL_VALUE){
             return this.nickels;
         }else{
             return 0;
@@ -50,7 +50,7 @@ public class CoinDispenser {
         this.nickels = nickelAmount;
     }
     public String getDifference(CoinDispenser coinDispenser){
-        return stringMaker(this.getCoins(25) - coinDispenser.getCoins(25), this.getCoins(10) - coinDispenser.getCoins(10), this.getCoins(5) - coinDispenser.getCoins(5));
+        return stringMaker(this.getCoins(CoinValues.QUARTER_VALUE) - coinDispenser.getCoins(CoinValues.QUARTER_VALUE), this.getCoins(CoinValues.DIME_VALUE) - coinDispenser.getCoins(CoinValues.DIME_VALUE), this.getCoins(CoinValues.NICKEL_VALUE) - coinDispenser.getCoins(CoinValues.NICKEL_VALUE));
     }
     public String stringMaker(int quarterAmount, int dimeAmount, int nickelAmount){
         String quarter = " Quarters, ";
@@ -70,12 +70,6 @@ public class CoinDispenser {
     public String getCoinAmount(){
         return stringMaker(this.quarters, this.dimes, this.nickels);
     }
-    //rounds the double to proper .00 format
-    public double round(double number){
-        BigDecimal bigDecimal = new BigDecimal(number);
-        bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
-        return bigDecimal.doubleValue();
-    }
     public String makeChange(double amountToReturn){
         double amountReturned = 0;
         double originalAmountToReturn = amountToReturn;
@@ -87,30 +81,30 @@ public class CoinDispenser {
         int nickelsLeft = this.nickels;
         int totalCoins = this.quarters + this.dimes + this.nickels;
         while(originalAmountToReturn > amountReturned){
-            if(amountToReturn >= .25 && quartersLeft > 0){
-                amountToReturn = amountToReturn - .25;
+            if(amountToReturn >= CoinValues.QUARTER_VALUE && quartersLeft > 0){
+                amountToReturn = amountToReturn - CoinValues.QUARTER_VALUE;
                 quartersLeft = quartersLeft - 1;
                 quartersReturned++;
                 totalCoins = totalCoins - 1;
-                amountReturned = amountReturned + .25;
-                amountReturned = round(amountReturned);
-                amountToReturn = round(amountToReturn);
-            }else if(amountToReturn >= .1 && dimesLeft > 0){
-                amountToReturn = amountToReturn - .1;
+                amountReturned = amountReturned + CoinValues.QUARTER_VALUE;
+                amountReturned = RoundDoubles.round(amountReturned);
+                amountToReturn = RoundDoubles.round(amountToReturn);
+            }else if(amountToReturn >= CoinValues.DIME_VALUE && dimesLeft > 0){
+                amountToReturn = amountToReturn - CoinValues.DIME_VALUE;
                 dimesLeft = dimesLeft - 1;
                 dimesReturned++;
                 totalCoins = totalCoins - 1;
-                amountReturned = amountReturned + .1;
-                amountReturned = round(amountReturned);
-                amountToReturn = round(amountToReturn);
-            }else if(amountToReturn >= .05 && nickelsLeft > 0){
-                amountToReturn = amountToReturn - .05;
+                amountReturned = amountReturned + CoinValues.DIME_VALUE;
+                amountReturned = RoundDoubles.round(amountReturned);
+                amountToReturn = RoundDoubles.round(amountToReturn);
+            }else if(amountToReturn >= CoinValues.NICKEL_VALUE && nickelsLeft > 0){
+                amountToReturn = amountToReturn - CoinValues.NICKEL_VALUE;
                 nickelsLeft = nickelsLeft - 1;
                 nickelsReturned++;
                 totalCoins = totalCoins - 1;
-                amountReturned = amountReturned + .05;
-                amountReturned = round(amountReturned);
-                amountToReturn = round(amountToReturn);
+                amountReturned = amountReturned + CoinValues.NICKEL_VALUE;
+                amountReturned = RoundDoubles.round(amountReturned);
+                amountToReturn = RoundDoubles.round(amountToReturn);
             }
             else{
                 return "Can't make change";

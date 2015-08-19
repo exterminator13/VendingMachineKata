@@ -1,12 +1,10 @@
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import vendingmachinekata.VendingMachineTransaction;
 import vendingmachinekata.CoinDispenser;
+import vendingmachinekata.CoinValues;
 import vendingmachinekata.Item;
 
 public class VendingMachineTransactionTest {
@@ -33,7 +31,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void displaysInsertCoinWhileNotInTransaction(){
-        test.getCoinDispenser().addCoins(10, 1);
+        test.getCoinDispenser().addCoins(CoinValues.DIME_VALUE, 1);
         assertEquals("INSERT COINS", test.display());
     }
     @Test
@@ -77,7 +75,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void havingExactChangeReturnsThankYouForColaAndSubtractsFromTotal(){
-        test.getCoinDispenser().addCoins(5, 3);
+        test.getCoinDispenser().addCoins(CoinValues.NICKEL_VALUE, 3);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
@@ -89,7 +87,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void havingExactChangeReturnsThankYouForChipsAndSubtractsFromTotal(){
-        test.getCoinDispenser().addCoins(10, 10);
+        test.getCoinDispenser().addCoins(CoinValues.DIME_VALUE, 10);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(nickelWeight, nickelDiameter);
@@ -129,7 +127,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void extraMoneyReturedAfterColaTransaction(){
-        test.getCoinDispenser().addCoins(5, 5);
+        test.getCoinDispenser().addCoins(CoinValues.NICKEL_VALUE, 5);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
@@ -141,7 +139,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void extraMoneyReturnedAfterCandyTransaction(){
-        test.getCoinDispenser().addCoins(10, 3);
+        test.getCoinDispenser().addCoins(CoinValues.DIME_VALUE, 3);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(quarterWeight, quarterDiameter);
@@ -149,7 +147,7 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void extraMoneyReturnedAfterChipsTransaction(){
-        test.getCoinDispenser().addCoins(5, 2);
+        test.getCoinDispenser().addCoins(CoinValues.NICKEL_VALUE, 2);
         test.coinRecognition(quarterWeight, quarterDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
         test.coinRecognition(dimeWeight, dimeDiameter);
@@ -252,6 +250,6 @@ public class VendingMachineTransactionTest {
         assertEquals(0.20, test.getCurrentAmount(), 0.01);
         assertEquals("0 Quarters, 2 Dimes, 0 Nickels", test.returnCoins());
         assertEquals(0.00, test.getCurrentAmount(), 0.01);
-        assertEquals("0 Quarters, 0 Dimes, 0 Nickels", test.getCoinDispenser().getCoinAmount());
+        assertEquals("0 Quarters, 0 Dimes, 0 Nickels", test.getCoinDispenser().getCoinAmount());       
     }
 }

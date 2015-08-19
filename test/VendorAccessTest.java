@@ -60,7 +60,7 @@ public class VendorAccessTest {
     }
     @Test
     public void vendorCanEmptyCoinDispenser(){
-        String input = "2\n" + "5\n" + "10\n" + "3\n" + "0\n";
+        String input = "2\n" + "05\n" + "10\n" + "3\n" + "0\n";
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
