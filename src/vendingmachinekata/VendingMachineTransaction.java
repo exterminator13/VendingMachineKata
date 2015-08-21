@@ -7,11 +7,12 @@ public class VendingMachineTransaction {
     Item cola;
     Item candy;
     Item chips;
-    public VendingMachineTransaction(MachineCoinTracker coinDispenser){
+    public VendingMachineTransaction(MachineCoinTracker coinTracker){
         this.currentAmount = new Money();
-        this.coinTracker = coinDispenser; 
+        this.coinTracker = coinTracker; 
     }
     public void startNewTransaction(){
+        this.currentAmount = new Money();
         this.transactionDispenser = new MachineCoinTracker();
         this.transactionDispenser.setCoins(coinTracker.getCoins(CoinValues.QUARTER_VALUE), coinTracker.getCoins(CoinValues.DIME_VALUE), coinTracker.getCoins(CoinValues.NICKEL_VALUE));
     }

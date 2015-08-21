@@ -61,4 +61,14 @@ public class ChangeMaker {
         this.amountToReturn = this.amountToReturn - coinValue;
         this.totalCoins--;
     }
+    public String makeTransactionChange(VendingMachineTransaction vendingMachineTransaction){
+        double amountToReturn = vendingMachineTransaction.getCurrentAmount();
+        
+        ChangeMaker changeMaker = new ChangeMaker(amountToReturn, vendingMachineTransaction.coinTracker);
+        String changeMade = changeMaker.returnChange();
+        if(changeMade.equals("Can't make change")){
+            return changeMade;
+        }
+        return changeMade + " returned";
+    }
 }

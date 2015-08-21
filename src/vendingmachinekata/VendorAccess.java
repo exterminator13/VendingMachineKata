@@ -87,9 +87,6 @@ public class VendorAccess implements Runnable{
                     coinValue = Double.parseDouble("." + reader.nextLine());
                 }catch(Exception d){
                 }
-                int quarterValue = 25;
-                int dimeValue = 10;
-                int nickelValue = 5;
                 if(coinValue == CoinValues.QUARTER_VALUE || coinValue == CoinValues.DIME_VALUE || coinValue == CoinValues.NICKEL_VALUE){
                     System.out.print("AMOUNT OF COINS:\n");
                     int coinAmount = -1;

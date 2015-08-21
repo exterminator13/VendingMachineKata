@@ -55,7 +55,8 @@ public class VendingMachine implements Runnable{
             System.out.print(this.vendingMachineTransaction.display()+"\n");
             String input = reader.nextLine();
             if(input.equals("return")){
-                System.out.print(this.vendingMachineTransaction.returnCoins()+"\n");
+                ChangeMaker changeMaker = new ChangeMaker(this.vendingMachineTransaction.getCurrentAmount(), this.vendingMachineTransaction.getCoinTracker());
+                System.out.print(changeMaker.returnChange()+"\n");
                 this.vendingMachineTransaction.startNewTransaction();
             }else if(input.equals("3689")){
                 vendorAccess.run();
