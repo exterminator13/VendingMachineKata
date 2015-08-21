@@ -2,27 +2,27 @@ package vendingmachinekata;
 
 public class VendingMachineTransaction {
     Money currentAmount;
-    CoinDispenser coinDispenser;
-    CoinDispenser transactionDispenser;
+    MachineCoinTracker coinTracker;
+    MachineCoinTracker transactionDispenser;
     Item cola;
     Item candy;
     Item chips;
-    public VendingMachineTransaction(CoinDispenser coinDispenser){
+    public VendingMachineTransaction(MachineCoinTracker coinDispenser){
         this.currentAmount = new Money();
-        this.coinDispenser = coinDispenser; 
+        this.coinTracker = coinDispenser; 
     }
     public void startNewTransaction(){
-        this.transactionDispenser = new CoinDispenser();
-        this.transactionDispenser.setCoins(coinDispenser.getCoins(CoinValues.QUARTER_VALUE), coinDispenser.getCoins(CoinValues.DIME_VALUE), coinDispenser.getCoins(CoinValues.NICKEL_VALUE));
+        this.transactionDispenser = new MachineCoinTracker();
+        this.transactionDispenser.setCoins(coinTracker.getCoins(CoinValues.QUARTER_VALUE), coinTracker.getCoins(CoinValues.DIME_VALUE), coinTracker.getCoins(CoinValues.NICKEL_VALUE));
     }
     public double getCurrentAmount(){
         return this.currentAmount.getAmount();
     }
-    public CoinDispenser getCoinDispenser(){
-        return this.coinDispenser;
+    public MachineCoinTracker getCoinTracker(){
+        return this.coinTracker;
     }
     public String display(){
-        if(this.coinDispenser.getAmountInMachine().getAmount() == 0.00){
+        if(this.coinTracker.getAmountInMachine().getAmount() == 0.00){
             return "EXACT CHANGE ONLY";
         }
         if(this.currentAmount.getAmount() == 0.00){
@@ -34,17 +34,17 @@ public class VendingMachineTransaction {
     public boolean coinRecognition(String weight, String diameter){
         if(weight.equals("5.670 g") && diameter.equals("0.955 in")){
             this.currentAmount.addMoney(CoinValues.QUARTER_VALUE);
-            this.coinDispenser.addCoins(CoinValues.QUARTER_VALUE, 1);
+            this.coinTracker.addCoins(CoinValues.QUARTER_VALUE, 1);
             return true;
         }
         if(weight.equals("2.268 g") && diameter.equals("0.705 in")){
             this.currentAmount.addMoney(CoinValues.DIME_VALUE);
-            this.coinDispenser.addCoins(CoinValues.DIME_VALUE, 1);
+            this.coinTracker.addCoins(CoinValues.DIME_VALUE, 1);
             return true;
         }
         if(weight.equals("5.000 g") && diameter.equals("0.835 in")){
             this.currentAmount.addMoney(CoinValues.NICKEL_VALUE);
-            this.coinDispenser.addCoins(CoinValues.NICKEL_VALUE, 1);
+            this.coinTracker.addCoins(CoinValues.NICKEL_VALUE, 1);
             return true;
         }
         return false;
@@ -78,7 +78,8 @@ public class VendingMachineTransaction {
     public String makeChange(){
         this.currentAmount.setAmount(RoundDoubles.round(this.currentAmount.getAmount()));
         double amountToReturn = this.currentAmount.getAmount();
-        String changeMade = this.coinDispenser.makeChange(amountToReturn);
+        ChangeMaker changeMaker = new ChangeMaker(amountToReturn, this.coinTracker);
+        String changeMade = changeMaker.returnChange();
         if(changeMade.equals("Can't make change")){
             return changeMade;
         }
@@ -86,8 +87,8 @@ public class VendingMachineTransaction {
         return changeMade + " returned";
     }
     public String returnCoins(){
-        String coinsReturned = this.coinDispenser.getDifference(this.transactionDispenser);
-        this.coinDispenser.setCoins(this.transactionDispenser.getCoins(CoinValues.QUARTER_VALUE), this.transactionDispenser.getCoins(CoinValues.DIME_VALUE), this.transactionDispenser.getCoins(CoinValues.NICKEL_VALUE));
+        String coinsReturned = this.coinTracker.getDifference(this.transactionDispenser);
+        this.coinTracker.setCoins(this.transactionDispenser.getCoins(CoinValues.QUARTER_VALUE), this.transactionDispenser.getCoins(CoinValues.DIME_VALUE), this.transactionDispenser.getCoins(CoinValues.NICKEL_VALUE));
         this.currentAmount.setAmount(0.00);
         return coinsReturned;
     }

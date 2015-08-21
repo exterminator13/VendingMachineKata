@@ -56,7 +56,7 @@ public class VendorAccessTest {
         + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "0 Quarters, 3 Dimes, 0 Nickels\n"
         + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "4 Quarters, 3 Dimes, 0 Nickels\n"
         + welcome));
-        assertEquals("4 Quarters, 3 Dimes, 0 Nickels", vendingMachine.getCoinDispenser().getCoinAmount());
+        assertEquals("4 Quarters, 3 Dimes, 0 Nickels", vendingMachine.getCoinTracker().getCoinAmount());
     }
     @Test
     public void vendorCanEmptyCoinDispenser(){
@@ -67,7 +67,7 @@ public class VendorAccessTest {
         assertTrue(outStream.toString().equals(instructions + welcome
         + "COIN VALUE:\n" + "AMOUNT OF COINS:\n" + "0 Quarters, 0 Dimes, 10 Nickels\n"
         + welcome + "COINS EMPTIED\n" + welcome));
-        assertEquals("0 Quarters, 0 Dimes, 0 Nickels", vendingMachine.getCoinDispenser().getCoinAmount());
+        assertEquals("0 Quarters, 0 Dimes, 0 Nickels", vendingMachine.getCoinTracker().getCoinAmount());
     }
     @Test
     public void newItemAddedToItemList(){

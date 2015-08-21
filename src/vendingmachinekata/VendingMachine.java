@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VendingMachine implements Runnable{
-    CoinDispenser coinDispenser;
+    MachineCoinTracker coinTracker;
     VendingMachineTransaction vendingMachineTransaction;
     VendorAccess vendorAccess;
     Item cola;
@@ -15,8 +15,8 @@ public class VendingMachine implements Runnable{
     Item chips;
     List<Item> items;
     public VendingMachine(){
-        this.coinDispenser = new CoinDispenser();
-        this.vendingMachineTransaction = new VendingMachineTransaction(this.coinDispenser);
+        this.coinTracker = new MachineCoinTracker();
+        this.vendingMachineTransaction = new VendingMachineTransaction(this.coinTracker);
         this.items = new ArrayList();
         this.cola = new Item("cola", 1.00);
         this.candy = new Item("candy", 0.65);
@@ -35,8 +35,8 @@ public class VendingMachine implements Runnable{
     public Item itemSelector(int itemNumber){
         return this.items.get(itemNumber);
     }
-    public CoinDispenser getCoinDispenser(){
-        return this.coinDispenser;
+    public MachineCoinTracker getCoinTracker(){
+        return this.coinTracker;
     }
     @Override
     public void run(){

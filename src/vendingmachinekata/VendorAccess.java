@@ -21,16 +21,16 @@ public class VendorAccess implements Runnable{
     }
     public String stockCoins(double coinValue, int amount){
         if(coinValue == CoinValues.QUARTER_VALUE){
-            this.vendingMachine.coinDispenser.addCoins(CoinValues.QUARTER_VALUE, amount);
-            return this.vendingMachine.coinDispenser.getCoinAmount();
+            this.vendingMachine.coinTracker.addCoins(CoinValues.QUARTER_VALUE, amount);
+            return this.vendingMachine.coinTracker.getCoinAmount();
         }
         if(coinValue == CoinValues.DIME_VALUE){
-            this.vendingMachine.coinDispenser.addCoins(CoinValues.DIME_VALUE, amount);
-            return this.vendingMachine.coinDispenser.getCoinAmount();
+            this.vendingMachine.coinTracker.addCoins(CoinValues.DIME_VALUE, amount);
+            return this.vendingMachine.coinTracker.getCoinAmount();
         }
         if(coinValue == CoinValues.NICKEL_VALUE){
-            this.vendingMachine.coinDispenser.addCoins(CoinValues.NICKEL_VALUE, amount);
-            return this.vendingMachine.coinDispenser.getCoinAmount();
+            this.vendingMachine.coinTracker.addCoins(CoinValues.NICKEL_VALUE, amount);
+            return this.vendingMachine.coinTracker.getCoinAmount();
         }else{
             return "INVALID AMOUNT";
         }
@@ -108,8 +108,8 @@ public class VendorAccess implements Runnable{
                 }               
             }
             if(input == emptyDispenser){
-                this.vendingMachine.coinDispenser.setCoins(0, 0, 0);
-                if("0 Quarters, 0 Dimes, 0 Nickels".equals(this.vendingMachine.coinDispenser.getCoinAmount())){
+                this.vendingMachine.coinTracker.setCoins(0, 0, 0);
+                if("0 Quarters, 0 Dimes, 0 Nickels".equals(this.vendingMachine.coinTracker.getCoinAmount())){
                     System.out.print("COINS EMPTIED\n");
                 }else{
                     System.out.print("ERROR\n");
