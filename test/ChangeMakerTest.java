@@ -1,22 +1,27 @@
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import vendingmachinekata.ChangeMaker;
 import vendingmachinekata.MachineCoinTracker;
 import vendingmachinekata.CoinValues;
+import vendingmachinekata.VendingMachineTransaction;
 
 public class ChangeMakerTest {
     MachineCoinTracker test;
+    VendingMachineTransaction transaction;
     public ChangeMakerTest() {
     }
     @Before
     public void setUp(){
         test = new MachineCoinTracker();
     }
+    String quarterWeight = "5.670 g";
+    String quarterDiameter = "0.955 in";
+    String dimeWeight = "2.268 g";
+    String dimeDiameter = "0.705 in";
+    String nickelWeight = "5.000 g";
+    String nickelDiameter = "0.835 in";
     @Test
     public void makesChangeWithQuarter(){
         test.addCoins(CoinValues.QUARTER_VALUE, 1);

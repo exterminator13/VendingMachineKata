@@ -48,7 +48,6 @@ public class VendingMachine implements Runnable{
         }
         System.out.print("Press 0 to exit\n");
         Scanner reader = new Scanner(System.in);
-        this.vendingMachineTransaction.startNewTransaction();
         String pattern = "(\\d)(.)(\\d{3})(\\s)(g)";
         Pattern match = Pattern.compile(pattern);
         while(true){
@@ -87,12 +86,13 @@ public class VendingMachine implements Runnable{
                         break;
                     }
                     if(this.items.size() > item && item >= 0){
-                        String itemSelector = this.vendingMachineTransaction.selectItem(this.itemSelector(item));
-                        if(itemSelector.contains("THANK YOU")){
+                        ItemSelector itemSelector = new ItemSelector(this.vendingMachineTransaction);
+                        String itemSelect = itemSelector.selectItem(this.items.get(item));
+                        if(itemSelect.contains("THANK YOU")){
                             this.items.get(item).itemSold();
                             this.vendingMachineTransaction.startNewTransaction();
                         }
-                        System.out.print(itemSelector+"\n");
+                        System.out.print(itemSelect+"\n");
                     }else{
                         System.out.print("INVALID SELECTION\n");
                     }

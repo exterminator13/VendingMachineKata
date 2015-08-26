@@ -16,8 +16,8 @@ public class ChangeMaker {
     public ChangeMaker(double amountToReturn, MachineCoinTracker coinTracker){
         this.coinTracker = coinTracker;
         this.amountReturned = 0;
-        this.amountToReturn = amountToReturn;
-        this.originalAmountToReturn = amountToReturn;
+        this.amountToReturn = RoundDoubles.round(amountToReturn);
+        this.originalAmountToReturn = RoundDoubles.round(amountToReturn);
         this.quartersReturned = 0;
         this.dimesReturned = 0;
         this.nickelsReturned = 0;
@@ -60,15 +60,5 @@ public class ChangeMaker {
         this.amountReturned = this.amountReturned + coinValue;
         this.amountToReturn = this.amountToReturn - coinValue;
         this.totalCoins--;
-    }
-    public String makeTransactionChange(VendingMachineTransaction vendingMachineTransaction){
-        double amountToReturn = vendingMachineTransaction.getCurrentAmount();
-        
-        ChangeMaker changeMaker = new ChangeMaker(amountToReturn, vendingMachineTransaction.coinTracker);
-        String changeMade = changeMaker.returnChange();
-        if(changeMade.equals("Can't make change")){
-            return changeMade;
-        }
-        return changeMade + " returned";
     }
 }
