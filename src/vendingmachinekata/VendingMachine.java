@@ -14,6 +14,7 @@ public class VendingMachine implements Runnable{
     Item candy;
     Item chips;
     List<Item> items;
+    CoinRecognizer coinRecognizer;
     public VendingMachine(){
         this.coinTracker = new MachineCoinTracker();
         this.vendingMachineTransaction = new VendingMachineTransaction(this.coinTracker);
@@ -25,6 +26,7 @@ public class VendingMachine implements Runnable{
         this.items.add(this.candy);
         this.items.add(this.chips);
         this.vendorAccess = new VendorAccess(this);
+        this.coinRecognizer = new CoinRecognizer(this.vendingMachineTransaction);
     }
     public List<Item> getListOfItems(){
         return this.items;
@@ -69,7 +71,7 @@ public class VendingMachine implements Runnable{
                     Pattern diameterMatch = Pattern.compile(inchPattern);
                     Matcher matcher = diameterMatch.matcher(diameter);
                     if(matcher.matches()){
-                        validCoin = this.vendingMachineTransaction.coinRecognition(input, diameter);    
+                        validCoin = this.coinRecognizer.coinRecognition(input, diameter);    
                     }
                     if(validCoin == false){
                         System.out.print("Coin returned\n");
