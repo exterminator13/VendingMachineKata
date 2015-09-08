@@ -3,6 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import vendingmachinekata.ChangeMaker;
+import vendingmachinekata.CoinRecognizer;
 import vendingmachinekata.VendingMachineTransaction;
 import vendingmachinekata.MachineCoinTracker;
 import vendingmachinekata.CoinValues;
@@ -10,6 +11,7 @@ import vendingmachinekata.Item;
 
 public class VendingMachineTransactionTest {
     VendingMachineTransaction test;
+    CoinRecognizer coinRecognizer;
     public VendingMachineTransactionTest() {
         
     }
@@ -26,6 +28,7 @@ public class VendingMachineTransactionTest {
     public void setUp(){
         MachineCoinTracker coinTracker = new MachineCoinTracker();
         test = new VendingMachineTransaction(coinTracker);
+        coinRecognizer = new CoinRecognizer(test);
         candy.setStock(1);
         cola.setStock(1);
         chips.setStock(1);
@@ -36,30 +39,18 @@ public class VendingMachineTransactionTest {
         assertEquals("INSERT COINS", test.display());
     }
     @Test
-    public void recognizesWeightAndDiameterOfQuater(){
-        assertTrue(test.coinRecognition("5.670 g", "0.955 in"));
-    }
-    @Test
-    public void recognizesWeightAndDiameterOfDime(){
-        assertTrue(test.coinRecognition("2.268 g", "0.705 in"));
-    }
-    @Test
-    public void recognizesWeightAndDiameterOfNickel(){
-        assertTrue(test.coinRecognition("5.000 g", "0.835 in"));
-    }
-    @Test
     public void addingAQuarterToMachineAndGettingTotalBack(){
-        test.coinRecognition(quarterWeight, quarterDiameter);
+        coinRecognizer.coinRecognition(quarterWeight, quarterDiameter);
         assertEquals("$0.25",  test.display());
     }
     @Test
     public void addingADimeToMachineAndGettingTotalBack(){
-        test.coinRecognition(dimeWeight, dimeDiameter);
+        coinRecognizer.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals("$0.10", test.display());
     }
     @Test
     public void addingANickelToMachineAndGettingTotalBack(){
-        test.coinRecognition(nickelWeight, nickelDiameter);
+        coinRecognizer.coinRecognition(nickelWeight, nickelDiameter);
         assertEquals("$0.05", test.display());
     }
     @Test
@@ -69,17 +60,17 @@ public class VendingMachineTransactionTest {
     }
     @Test
     public void coinsAddedToTransactionGetAddedToCoinDispenser(){
-        test.coinRecognition(dimeWeight, dimeDiameter);
-        test.coinRecognition(quarterWeight, quarterDiameter);
-        test.coinRecognition(nickelWeight, nickelDiameter);
+        coinRecognizer.coinRecognition(dimeWeight, dimeDiameter);
+        coinRecognizer.coinRecognition(quarterWeight, quarterDiameter);
+        coinRecognizer.coinRecognition(nickelWeight, nickelDiameter);
         assertEquals("1 Quarter, 1 Dime, 1 Nickel",test.getCoinTracker().getCoinAmount());
     }
     @Test
     public void returnCoinsAddedDuringTransaction(){
         test.startNewTransaction();
-        test.coinRecognition(dimeWeight, dimeDiameter);
-        test.coinRecognition(quarterWeight, quarterDiameter);
-        test.coinRecognition(nickelWeight, nickelDiameter);
+        coinRecognizer.coinRecognition(dimeWeight, dimeDiameter);
+        coinRecognizer.coinRecognition(quarterWeight, quarterDiameter);
+        coinRecognizer.coinRecognition(nickelWeight, nickelDiameter);
         assertEquals("1 Quarter, 1 Dime, 1 Nickel", test.getCoinTracker().getCoinAmount());
     }
     @Test
@@ -94,15 +85,15 @@ public class VendingMachineTransactionTest {
     @Test
     public void accurateCoinAmountAfterMultipleTransactions(){
         test.startNewTransaction();
-        test.coinRecognition(dimeWeight, dimeDiameter);
-        test.coinRecognition(quarterWeight, quarterDiameter);
-        test.coinRecognition(nickelWeight, nickelDiameter);
+        coinRecognizer.coinRecognition(dimeWeight, dimeDiameter);
+        coinRecognizer.coinRecognition(quarterWeight, quarterDiameter);
+        coinRecognizer.coinRecognition(nickelWeight, nickelDiameter);
         assertEquals(0.40, test.getCurrentAmount(), 0.01);
         assertEquals("1 Quarter, 1 Dime, 1 Nickel", test.getCoinTracker().getCoinAmount());
         assertEquals(0.00, test.getTransactionDispenser().getAmountInMachine().getAmount(), 0.01);
         test.startNewTransaction();
-        test.coinRecognition(dimeWeight, dimeDiameter);
-        test.coinRecognition(dimeWeight, dimeDiameter);
+        coinRecognizer.coinRecognition(dimeWeight, dimeDiameter);
+        coinRecognizer.coinRecognition(dimeWeight, dimeDiameter);
         assertEquals(0.20, test.getCurrentAmount(), 0.01);
         assertEquals("0 Quarters, 2 Dimes, 0 Nickels", test.getCoinTracker().getDifference(test.getTransactionDispenser()));      
     }

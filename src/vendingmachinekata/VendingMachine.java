@@ -53,7 +53,8 @@ public class VendingMachine implements Runnable{
         String pattern = "(\\d)(.)(\\d{3})(\\s)(g)";
         Pattern match = Pattern.compile(pattern);
         while(true){
-            System.out.print(this.vendingMachineTransaction.display()+"\n");
+            VendingMachineDisplay vendingMachineDisplay = new VendingMachineDisplay(this.vendingMachineTransaction);
+            System.out.print(vendingMachineDisplay.display()+"\n");
             String input = reader.nextLine();
             if(input.equals("return")){
                 ChangeMaker changeMaker = new ChangeMaker(this.vendingMachineTransaction.getCurrentAmount(), this.vendingMachineTransaction.getCoinTracker());
