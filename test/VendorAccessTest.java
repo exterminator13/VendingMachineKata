@@ -24,13 +24,17 @@ public class VendorAccessTest {
     String stockCoins = "2\n";
     String emptyDispenser = "3\n";
     String addNewItem = "4\n";
+    String enterItemName = "ENTER ITEM NAME:\n";
+    String price = "PRICE:\n";
     String exit = "0\n";
+    int length;
     @Before
     public void setUp(){
         vendingMachine = new VendingMachine();
         System.setOut(new PrintStream(outStream));
         System.setIn(in);
         vendorAccess = new VendorAccess(vendingMachine);
+        length = 0;
     }
     @Test
     public void vendorCanExit(){
@@ -48,11 +52,23 @@ public class VendorAccessTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
-        assertTrue(outStream.toString().equals(instructions + welcome //1 entered for stock items
-        + "ITEM'S NUMBER TO BE STOCKED:\n" //1 entered representing item's assigned number
-        + "AMOUNT ADDED:\n" //3 entered for amount of items to be stocked
-        + "ITEM: COLA\n" + "STOCK: 3\n" + welcome)); // 0 entered to exit
-        assertEquals(3, vendingMachine.getListOfItems().get(0).getStock());
+        assertEquals(instructions, outStream.toString().substring(0, instructions.length()));
+        length += instructions.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 1 entered for stock items
+        assertEquals(itemsNumberToBeStocked, outStream.toString().substring(length, length + itemsNumberToBeStocked.length()));
+        length += itemsNumberToBeStocked.length();
+        // 1 entered representing item's assigned number
+        String amountAdded = "AMOUNT ADDED:\n";
+        assertEquals(amountAdded, outStream.toString().substring(length, length + amountAdded.length()));
+        length += amountAdded.length();
+        // 3 entered for amount of items to be stocked
+        String itemStock = "ITEM: COLA\n" + "STOCK: 3\n";
+        assertEquals(itemStock, outStream.toString().substring(length, length + itemStock.length()));
+        length += itemStock.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        // 0 entered to exit
     }
     @Test
     public void vendorCanStockCoins(){
@@ -66,17 +82,49 @@ public class VendorAccessTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
-        assertTrue(outStream.toString().equals(instructions + welcome //2 entered for adding coins
-        + "COIN VALUE:\n" // 10 entered for coin's value
-        + "AMOUNT OF COINS:\n" // 2 entered for amount of dimes added 
-        + "0 Quarters, 2 Dimes, 0 Nickels\n" + welcome  // 2 entered for adding coins
-        + "COIN VALUE:\n" // 10 entered for coin's value
-        + "AMOUNT OF COINS:\n" // 1 entered for amount of dimes added
-        + "0 Quarters, 3 Dimes, 0 Nickels\n" + welcome + "COIN VALUE:\n" //25 entered for coin's value 
-        + "AMOUNT OF COINS:\n" //4 entered for amount of quarters
-        + "4 Quarters, 3 Dimes, 0 Nickels\n" + welcome //0 entered to exit
-        ));
-        assertEquals("4 Quarters, 3 Dimes, 0 Nickels", vendingMachine.getCoinTracker().getCoinAmount());
+        assertEquals(instructions, outStream.toString().substring(0, instructions.length()));
+        length += instructions.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 2 entered for adding coins
+        String coinValue = "COIN VALUE:\n";
+        assertEquals(coinValue, outStream.toString().substring(length, length + coinValue.length()));
+        length += coinValue.length();
+        // 10 entered for coin's value
+        String amountOfCoins = "AMOUNT OF COINS:\n";
+        assertEquals(amountOfCoins, outStream.toString().substring(length, length + amountOfCoins.length()));
+        length += amountOfCoins.length();
+        // 2 entered for amount of dimes added
+        String coinTotal = "0 Quarters, 2 Dimes, 0 Nickels\n";
+        assertEquals(coinTotal, outStream.toString().substring(length, length + coinTotal.length()));
+        length += coinTotal.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 2 entered for adding coins
+        assertEquals(coinValue, outStream.toString().substring(length, length + coinValue.length()));
+        length += coinValue.length();
+        // 10 entered for coin's value
+        assertEquals(amountOfCoins, outStream.toString().substring(length, length + amountOfCoins.length()));
+        length += amountOfCoins.length();
+        // 1 entered for amount of dimes added
+        String coinTotal2 = "0 Quarters, 3 Dimes, 0 Nickels\n";
+        assertEquals(coinTotal2, outStream.toString().substring(length, length + coinTotal2.length()));
+        length += coinTotal2.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 2 entered for adding coins
+        assertEquals(coinValue, outStream.toString().substring(length, length + coinValue.length()));
+        length += coinValue.length();
+        // 25 entered for coin's value
+        assertEquals(amountOfCoins, outStream.toString().substring(length, length + amountOfCoins.length()));
+        length += amountOfCoins.length();
+        // 4 entered for amount of quarters
+        String coinTotal3 = "4 Quarters, 3 Dimes, 0 Nickels\n";
+        assertEquals(coinTotal3, outStream.toString().substring(length, length + coinTotal3.length()));
+        length += coinTotal3.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 0 entered to exit
     }
     @Test
     public void vendorCanEmptyCoinDispenser(){
@@ -86,13 +134,31 @@ public class VendorAccessTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
-        assertTrue(outStream.toString().equals(instructions + welcome //2 entered for stock coins
-        + "COIN VALUE:\n" //05 entered for nickel value
-        + "AMOUNT OF COINS:\n" //10 entered for amount of nickels
-        + "0 Quarters, 0 Dimes, 10 Nickels\n" + welcome //3 pressed to empty coin dispenser
-        +"COINS EMPTIED\n" + welcome //0 pressed to exit
-        ));
-        assertEquals("0 Quarters, 0 Dimes, 0 Nickels", vendingMachine.getCoinTracker().getCoinAmount());
+        assertEquals(instructions, outStream.toString().substring(0, length + instructions.length()));
+        length += instructions.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 2 entered for stock coins
+        String coinValue = "COIN VALUE:\n";
+        assertEquals(coinValue, outStream.toString().substring(length, length + coinValue.length()));
+        length += coinValue.length();
+        // 05 entered for nickel value
+        String amountOfCoins = "AMOUNT OF COINS:\n";
+        assertEquals(amountOfCoins, outStream.toString().substring(length, length + amountOfCoins.length()));
+        length += amountOfCoins.length();
+        // 10 entered for amount of nickels
+        String totalCoins = "0 Quarters, 0 Dimes, 10 Nickels\n";
+        assertEquals(totalCoins, outStream.toString().substring(length, length + totalCoins.length()));
+        length += totalCoins.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 3 pressed to empty coin dispsner
+        String coinsEmptied = "COINS EMPTIED\n";
+        assertEquals(coinsEmptied, outStream.toString().substring(length, length + coinsEmptied.length()));
+        length += coinsEmptied.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 0 pressed to exit
     }
     @Test
     public void newItemAddedToItemList(){
@@ -103,16 +169,35 @@ public class VendorAccessTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
-        assertTrue(outStream.toString().equals(instructions + welcome // 4 entered for new item
-        +"ENTER ITEM NAME:\n" // water entered for item's name
-        + "PRICE:\n" // 1.25 entered to set price of water
-        + "NEW ITEM: WATER\n" + "PRICE: $1.25\n" + "ITEM NUMBER: 4\n" 
-        + welcome // 1 entered to stock item
-        + "ITEM'S NUMBER TO BE STOCKED:\n" // 4 entered for water's number
-        + "AMOUNT ADDED:\n" // 3 entered for amount of water added
-        + "ITEM: WATER\n" + "STOCK: 3\n" + welcome // 0 entered to exit
-        ));
-        assertEquals(3, vendingMachine.getListOfItems().get(3).getStock());
+        assertEquals(instructions, outStream.toString().substring(0, instructions.length()));
+        length += instructions.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 4 entered for adding new item
+        assertEquals(enterItemName, outStream.toString().substring(length, length + enterItemName.length()));
+        length += enterItemName.length();
+        // water entered for item's name
+        assertEquals(price, outStream.toString().substring(length, length + price.length()));
+        length += price.length();
+        // 1.25 entered to set price of water
+        String newItemDescription = "NEW ITEM: WATER\n" + "PRICE: $1.25\n" + "ITEM NUMBER: 4\n";
+        assertEquals(newItemDescription, outStream.toString().substring(length, length + newItemDescription.length()));
+        length += newItemDescription.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 1 entered to stock item
+        assertEquals(itemsNumberToBeStocked, outStream.toString().substring(length, length + itemsNumberToBeStocked.length()));
+        length += itemsNumberToBeStocked.length();
+        // 4 entered for water's number
+        String amountAdded = "AMOUNT ADDED:\n";
+        assertEquals(amountAdded, outStream.toString().substring(length, length + amountAdded.length()));
+        length += amountAdded.length();
+        // 3 entered for amount of water added
+        String stockConfirmation = "ITEM: WATER\n" + "STOCK: 3\n";
+        assertEquals(stockConfirmation, outStream.toString().substring(length, length + stockConfirmation.length()));
+        length += stockConfirmation.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        // 0 entered to exit
     }
     @Test
     public void invalidChoicesOnItemStockingDisplaysErrorsKeepsGoing(){
@@ -120,7 +205,6 @@ public class VendorAccessTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
-        int length = 0;
         assertEquals(instructions, outStream.toString().substring(0, instructions.length()));
         length += instructions.length();
         assertEquals(welcome, outStream.toString().subSequence(length, length + welcome.length()));
@@ -160,11 +244,6 @@ public class VendorAccessTest {
         length += stock83.length() + itemChips.length();
         assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
         // 0 pressed to exit
-        assertTrue(outStream.toString().equals(instructions + welcome 
-        + "ITEM'S NUMBER TO BE STOCKED:\n" + "INVALID ITEM NUMBER\n" + welcome
-        + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" + "INVALID AMOUNT\n"
-        + welcome + "ITEM'S NUMBER TO BE STOCKED:\n" + "AMOUNT ADDED:\n" + "ITEM: CHIPS\n"
-        + "STOCK: 83\n" + welcome));
     }
     @Test
     public void invalidSelectionAtStartDisplaysErrorMessageKeepsGoing(){
@@ -172,8 +251,21 @@ public class VendorAccessTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
-        assertTrue(outStream.toString().equals(instructions + welcome + "INVALID SELECTION\n"
-        + welcome + "INVALID SELECTION\n" + welcome));
+        assertEquals(instructions, outStream.toString().substring(0, instructions.length()));
+        length += instructions.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 2098 entered
+        String invalidSelection = "INVALID SELECTION\n";
+        assertEquals(invalidSelection, outStream.toString().substring(length, length + invalidSelection.length()));
+        length += invalidSelection.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // ahflk entered
+        assertEquals(invalidSelection, outStream.toString().substring(length, length + invalidSelection.length()));
+        length += invalidSelection.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        // 0 entered to exit
     }
     @Test
     public void invalidSelectionAtCoinStockDisplaysErrorMessageKeepsGoing(){
@@ -181,9 +273,41 @@ public class VendorAccessTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
-        assertTrue(outStream.toString().equals(instructions + welcome + "COIN VALUE:\n"
-        + "INVALID VALUE\n" + welcome + "COIN VALUE:\n" + "AMOUNT OF COINS:\n"
-        + "INVALID AMOUNT\n" + welcome + "COIN VALUE:\n" + "INVALID VALUE\n" + welcome));
+        assertEquals(instructions, outStream.toString().substring(0, instructions.length()));
+        length += instructions.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 2 entered for coin stocking
+        String coinValue = "COIN VALUE:\n";
+        assertEquals(coinValue, outStream.toString().substring(length, length + coinValue.length()));
+        length += coinValue.length();
+        // 589 entered for coin value
+        String invalidValue = "INVALID VALUE\n";
+        assertEquals(invalidValue, outStream.toString().substring(length, length + invalidValue.length()));
+        length += invalidValue.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 2 entered for coin stocking
+        assertEquals(coinValue, outStream.toString().substring(length, length + coinValue.length()));
+        length += coinValue.length();
+        // 10 entered for coin value
+        String amountOfCoins = "AMOUNT OF COINS:\n";
+        assertEquals(amountOfCoins, outStream.toString().substring(length, length + amountOfCoins.length()));
+        length += amountOfCoins.length();
+        //-129 entered for amount of coins
+        String invalidAmount = "INVALID AMOUNT\n";
+        assertEquals(invalidAmount, outStream.toString().substring(length, length + invalidAmount.length()));
+        length += invalidAmount.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 2 entered for coin stocking
+        assertEquals(coinValue, outStream.toString().substring(length, length + coinValue.length()));
+        length += coinValue.length();
+        // asldkf entered for coin value
+        assertEquals(invalidValue, outStream.toString().substring(length, length + invalidValue.length()));
+        length += invalidValue.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        // 0 entered to exit
     }
     @Test
     public void invalidSelectinAtAddingNewItemDisplaysErrorMessageKeepsGoing(){
@@ -192,9 +316,42 @@ public class VendorAccessTest {
         in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
         vendorAccess.run();
-        assertTrue(outStream.toString().equals(instructions + welcome + "ENTER ITEM NAME:\n"
-        + "PRICE:\n" + "INVALID PRICE\n" + welcome + "ITEM'S NUMBER TO BE STOCKED:\n"
-        + "INVALID ITEM NUMBER\n" + welcome + "ENTER ITEM NAME:\n" + "PRICE:\n"
-        + "NEW ITEM: HOLDASDE\n" + "PRICE: $3.00\n" + "ITEM NUMBER: 4\n" + welcome));
+        assertEquals(instructions, outStream.toString().substring(0, instructions.length()));
+        length += instructions.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 4 entered for new item
+        assertEquals(enterItemName, outStream.toString().substring(length, length + enterItemName.length()));
+        length += enterItemName.length();
+        // LKJoiu823098 entered for item name
+        assertEquals(price, outStream.toString().substring(length, length + price.length()));
+        length += price.length();
+        // afdlk entered for price
+        String invalidPrice = "INVALID PRICE\n";
+        assertEquals(invalidPrice, outStream.toString().substring(length, length + invalidPrice.length()));
+        length += invalidPrice.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 1 entered for stocking item
+        assertEquals(itemsNumberToBeStocked, outStream.toString().substring(length, length + itemsNumberToBeStocked.length()));
+        length += itemsNumberToBeStocked.length();
+        // 4 entered for item's number
+        String invalidItemNumber = "INVALID ITEM NUMBER\n";
+        assertEquals(invalidItemNumber, outStream.toString().substring(length, length + invalidItemNumber.length()));
+        length += invalidItemNumber.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        length += welcome.length();
+        // 4 entered for new item
+        assertEquals(enterItemName, outStream.toString().substring(length, length + enterItemName.length()));
+        length += enterItemName.length();
+        // holdasde entered for item name
+        assertEquals(price, outStream.toString().substring(length, length + price.length()));
+        length += price.length();
+        // 3 entered for price
+        String newItemSummary = "NEW ITEM: HOLDASDE\n" + "PRICE: $3.00\n" + "ITEM NUMBER: 4\n";
+        assertEquals(newItemSummary, outStream.toString().substring(length, length + newItemSummary.length()));
+        length += newItemSummary.length();
+        assertEquals(welcome, outStream.toString().substring(length, length + welcome.length()));
+        // 0 entered to exit
     }
 }
