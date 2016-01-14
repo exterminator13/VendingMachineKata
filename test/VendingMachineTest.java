@@ -69,9 +69,6 @@ public class VendingMachineTest {
         length += soldOut.length();
         assertEquals(exact, outStream.toString().substring(length, length + exact.length()));
         // 0 entered to exit
-        assertTrue(outStream.toString().equals(instructions + "EXACT CHANGE ONLY\n" + "SOLD OUT\n" +
-        "EXACT CHANGE ONLY\n" + "SOLD OUT\n" + "EXACT CHANGE ONLY\n" + "SOLD OUT\n" + 
-        "EXACT CHANGE ONLY\n"));
     }
     @Test
     public void vendingMachineDisplaysAmountForItemWithNoCoinsInserted(){
@@ -105,8 +102,6 @@ public class VendingMachineTest {
         assertEquals(exact, outStream.toString().substring(length, length + exact.length()));
         length += exact.length();
         // 0 entered to exit
-        assertTrue(outStream.toString().equals(instructions + "EXACT CHANGE ONLY\n" + "$1.00\n"
-        + "EXACT CHANGE ONLY\n" + "$0.65\n" + "EXACT CHANGE ONLY\n" + "$0.50\n" + "EXACT CHANGE ONLY\n"));
     }
     @Test
     public void vendingMachineDisplaysThankYouAfterEachTransactionOfExactAmount(){
@@ -176,11 +171,6 @@ public class VendingMachineTest {
         length += thank.length();
         assertEquals(insert, outStream.toString().substring(length, length + insert.length()));
         // 0 entered to exit
-        
-        assertTrue(outStream.toString().equals(instructions + "EXACT CHANGE ONLY\n" + "$0.25\n" + "$0.50\n"
-        + "$0.75\n" + "$1.00\n" + "THANK YOU\n"
-        + "INSERT COINS\n" + "$0.25\n" + "$0.50\n" + "$0.60\n" + "$0.65\n"
-        + "THANK YOU\n" + "INSERT COINS\n" + "$0.25\n" + "$0.50\n" + "THANK YOU\n" + "INSERT COINS\n"));
     }
     @Test
     public void displaysPriceAndThenAmountAfterSelectingItemWithInsufficentFunds(){
