@@ -116,7 +116,7 @@ public class VendorAccess implements Runnable{
                 System.out.print("ENTER ITEM NAME:\n");
                 String itemName = reader.nextLine();
                 System.out.print("PRICE:\n");
-                //Preventes invalid pricing
+                //Prevents invalid pricing
                 double price = -1.00;
                 try{
                     price = Double.parseDouble(reader.nextLine());

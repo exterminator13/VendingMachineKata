@@ -51,7 +51,7 @@ public class VendingMachine implements Runnable{
         System.out.print("Press 0 to exit\n");
         Scanner reader = new Scanner(System.in);
         String pattern = "(\\d)(.)(\\d{3})(\\s)(g)";
-        Pattern match = Pattern.compile(pattern);
+        Pattern matchWeight = Pattern.compile(pattern);
         while(true){
             VendingMachineDisplay vendingMachineDisplay = new VendingMachineDisplay(this.vendingMachineTransaction);
             System.out.print(vendingMachineDisplay.display()+"\n");
@@ -64,14 +64,15 @@ public class VendingMachine implements Runnable{
                 vendorAccess.run();
                 System.out.print("EXITING\n");
             }else{
-                Matcher m = match.matcher(input);
-                if(m.matches()){
+                //Seeing if input matches weight format
+                Matcher weightMatcher = matchWeight.matcher(input);
+                if(weightMatcher.matches()){
                     String diameter = reader.nextLine();
                     boolean validCoin = false;
                     String inchPattern = "(\\d)(.)(\\d{3})(\\s)(in)";
-                    Pattern diameterMatch = Pattern.compile(inchPattern);
-                    Matcher matcher = diameterMatch.matcher(diameter);
-                    if(matcher.matches()){
+                    Pattern diameterPattern = Pattern.compile(inchPattern);
+                    Matcher diameterMatcher = diameterPattern.matcher(diameter);
+                    if(diameterMatcher.matches()){
                         validCoin = this.coinRecognizer.coinRecognition(input, diameter);    
                     }
                     if(validCoin == false){
